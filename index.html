@@ -74,6 +74,7 @@
       .hotspot:hover{
         border-color: rgba(140, 255, 199, 0.9);
         box-shadow: 0 0 0 6px rgba(140, 255, 199, 0.14);
+ include everything else exactly as it is above (your current master file) */
       }
       .hotspot:focus-visible{
         outline:none;
@@ -100,6 +101,19 @@
         width:8px;height:8px;border-radius:999px;
         background: var(--accent);
         box-shadow:0 0 0 4px rgba(140,255,199,.14);
+      }
+
+      /* Extra stamp for “Did You Know?” (optional visual label) */
+      .factStamp{
+        position:absolute;
+        pointer-events:none;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.18);
+        background: rgba(0,0,0,.55);
+        color: rgba(255,255,255,.92);
+        font-size:12px;
+        backdrop-filter: blur(6px);
       }
 
       .hint{
@@ -224,6 +238,24 @@
         border:1px solid rgba(255,255,255,.14);
         margin-top:14px;
       }
+
+      /* Did You Know page */
+      .dykList{
+        margin:0;
+        padding-left:0;
+        list-style:none;
+        display:grid;
+        gap:12px;
+      }
+      .dykItem{
+        border:1px solid rgba(255,255,255,.14);
+        border-radius:16px;
+        background: rgba(255,255,255,.03);
+        padding:12px 14px;
+        line-height:1.55;
+        color: rgba(255,255,255,.84);
+      }
+      .dykItem strong{color: rgba(255,255,255,.95)}
     </style>
   </head>
 
@@ -243,7 +275,6 @@
 
       function openMaps(url){
         if(!url) return;
-        // iPad/Safari: window.open can be blocked, so use fallback
         const win = window.open(url, "_blank");
         if(!win) window.location.href = url;
       }
@@ -265,19 +296,12 @@
         }
       }
 
-      // -----------------------------
-      // Data
-      // -----------------------------
       const COMMON_ADVENTURE_TASKS = (prefix) => ([
         { id: `${prefix}-spot`, group: "Adventure Lab", text: "Can you spot any of the mounds described in the facts above?" },
         { id: `${prefix}-wildlife`, group: "Adventure Lab", text: "Look for wildlife or plants around the mounds. (Look, don’t touch.) Draw a picture in your field notebook." },
         { id: `${prefix}-notes`, group: "Field Notebook", text: "Sketch or take notes of your favorite area in your field notebook." },
       ]);
 
-      // 3 earnable toolkit badges per site:
-      // 1) FACT FINDER (eligible immediately on page)
-      // 2) MOUND MESSENGER (eligible after share button used)
-      // 3) EARTH EXPLORER (eligible after directions button used)
       function makeToolkitBadges(locId, icons){
         return [
           {
@@ -307,6 +331,9 @@
         ];
       }
 
+      // -----------------------------
+      // Data
+      // -----------------------------
       const LOCATIONS = [
         {
           id: "high-cliff",
@@ -314,7 +341,6 @@
           short: "Dramatic views above Lake Winnebago and classic Wisconsin outdoor vibes.",
           hotspot: { left: 64, top: 6, width: 32, height: 14 },
           mapUrl: "https://www.google.com/maps/dir/?api=1&destination=High%20Cliff%20State%20Park%2C%20Sherwood%2C%20WI&travelmode=driving",
-
           facts: [
             "Location: Neenah, WI",
             "Time Period: ~A.D. 700–1200 (Late Woodland)",
@@ -326,8 +352,7 @@
           gallery: ["./Highcliff1.png", "./Highcliff2.png"],
           adventureLabTitle: "Adventure Lab",
           adventureTasks: COMMON_ADVENTURE_TASKS("hc"),
-
-          // High Cliff: Compass, Magnifying glass, wheelbarrow
+          illustrates: makeToolkitBadges("high-cliff", { visit:"🧭", share:"🔦", fact:"🔍" }),
           toolkitItems: makeToolkitBadges("high-cliff", { visit:"🧭", share:"🔦", fact:"🔍" }),
         },
 
@@ -337,7 +362,6 @@
           short: "One of the most well-preserved Native American effigy mound sites in the nation!",
           hotspot: { left: 70, top: 41, width: 24, height: 18 },
           mapUrl: "https://www.google.com/maps/dir/?api=1&destination=2121%20Co%20Hwy%20A%2C%20West%20Bend%2C%20WI%2053090&travelmode=driving",
-
           facts: [
             "Location: Farmington, WI",
             "Time Period: ~A.D. 700–1200 (Late Woodland)",
@@ -353,7 +377,6 @@
             "The mounds are protected and sacred to Native American tribes today.",
           ],
           gallery: ["./LizardMoundMap.png", "./LizardMound.png"],
-
           adventureLabTitle: "Adventure Lab",
           adventureTasks: [
             { id: "lm-animal-lizard", group: "Animal Mounds", text: "Find a lizard-shaped mound." },
@@ -366,8 +389,6 @@
             { id: "lm-nature", group: "Nature Hunt", text: "Spot plants or wildlife around the mounds (look, don’t disturb)." },
             { id: "lm-sketch", group: "Field Notebook", text: "Sketch your favorite mound shape in your field notebook." },
           ],
-
-          // Lizard Mound: backpack, pick ax, clipboard
           toolkitItems: makeToolkitBadges("lizard-mound", { visit:"🎒", share:"⛏️", fact:"📋" }),
         },
 
@@ -377,7 +398,6 @@
           short: "A southeast Wisconsin lake stop—great for nature breaks and looped adventures.",
           hotspot: { left: 40, top: 50, width: 28, height: 15 },
           mapUrl: "https://www.google.com/maps/dir/?api=1&destination=3250%20Kettle%20Moraine%20Rd%2C%20Hartford%2C%20WI%2053027&travelmode=driving",
-
           facts: [
             "Location: Hartford, WI",
             "Time Period: ~A.D. 700–1200 (Late Woodland)",
@@ -389,8 +409,6 @@
           gallery: ["./Dock.png", "./Lake.png"],
           adventureLabTitle: "Adventure Lab",
           adventureTasks: COMMON_ADVENTURE_TASKS("pl"),
-
-          // Pike Lake: Dust pan, Trowel, Map
           toolkitItems: makeToolkitBadges("pike-lake", { visit:"🧹", share:"🪨", fact:"🗺️" }),
         },
 
@@ -400,7 +418,6 @@
           short: "One of Wisconsin’s most famous ancient places—an iconic archaeological site.",
           hotspot: { left: 7, top: 66, width: 28, height: 16 },
           mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Aztalan%20State%20Park%2C%20Lake%20Mills%2C%20WI&travelmode=driving",
-
           facts: [
             "Location: Jefferson County, WI",
             "Time Period: ~1000–1300 A.D.",
@@ -415,8 +432,6 @@
           gallery: ["./Aztalan1.png", "./Aztalan2.png"],
           adventureLabTitle: "Adventure Lab",
           adventureTasks: COMMON_ADVENTURE_TASKS("az"),
-
-          // Aztalan: Tape measure, dusting brush, work boots
           toolkitItems: makeToolkitBadges("aztalan-state-park", { visit:"🥾", share:"🖌️", fact:"📏" }),
         },
 
@@ -426,7 +441,6 @@
           short: "An effigy mound area—great for learning how landscapes can be ‘written’ with earthworks.",
           hotspot: { left: 8, top: 83, width: 44, height: 16 },
           mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Koshkonong%20Mounds%20Rd%2C%20Fort%20Atkinson%2C%20WI%2053538&travelmode=driving",
-
           facts: [
             "Location: Jefferson County, WI",
             "Time Period: ~A.D. 700–1200 (Late Woodland)",
@@ -440,8 +454,6 @@
           gallery: ["./Sign.png"],
           adventureLabTitle: "Adventure Lab",
           adventureTasks: COMMON_ADVENTURE_TASKS("ko"),
-
-          // Koshkonong: Work gloves, Shovel, shifting box
           toolkitItems: makeToolkitBadges("koshkonong-effigy-mounds", { visit:"🧤", share:"🔨", fact:"🧺" }),
         },
       ];
@@ -449,7 +461,17 @@
       function getLoc(id){ return LOCATIONS.find(l => l.id === id); }
 
       // -----------------------------
-      // Storage helpers (saves progress)
+      // NEW: Did You Know hotspot (adjust these numbers to sit by your lady explorer)
+      // -----------------------------
+      const DID_YOU_KNOW = {
+        id: "did-you-know",
+        title: "Did You Know?",
+        // TODO: Adjust these % values to match the lady explorer on cover.png
+        hotspot: { left: 58, top: 74, width: 34, height: 12 }
+      };
+
+      // -----------------------------
+      // Storage helpers
       // -----------------------------
       const STORAGE_KEY = "uw_progress_v3_toolkit";
 
@@ -488,11 +510,7 @@
       }
 
       // -----------------------------
-      // Simple routing using hash
-      // #/  -> cover
-      // #/location/:id
-      // #/toolkit
-      // #/etiquette
+      // Routing
       // -----------------------------
       function useHashRoute(){
         const [hash, setHash] = React.useState(window.location.hash || "#/");
@@ -521,6 +539,7 @@
               <div className="navRow">
                 <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
                 <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+                <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
                 <span className="pill">Game Map • Tap an icon</span>
               </div>
             </header>
@@ -529,6 +548,7 @@
               <div className="coverWrap" aria-label="Unearthed Wisconsin cover map">
                 <img className="coverImg" src="./cover.png" alt="Unearthed Wisconsin map cover" />
 
+                {/* Site hotspots */}
                 {LOCATIONS.map(loc => (
                   <React.Fragment key={loc.id}>
                     <button
@@ -558,18 +578,97 @@
                     ) : null}
                   </React.Fragment>
                 ))}
+
+                {/* NEW: Did You Know hotspot */}
+                <button
+                  className="hotspot"
+                  style={{
+                    left: `${DID_YOU_KNOW.hotspot.left}%`,
+                    top: `${DID_YOU_KNOW.hotspot.top}%`,
+                    width: `${DID_YOU_KNOW.hotspot.width}%`,
+                    height: `${DID_YOU_KNOW.hotspot.height}%`,
+                  }}
+                  onClick={() => nav("#/did-you-know")}
+                  aria-label="Open Did You Know page"
+                  title="Did You Know?"
+                />
+
+                {/* Optional label near the hotspot */}
+                <div
+                  className="factStamp"
+                  style={{
+                    left: `calc(${DID_YOU_KNOW.hotspot.left}% + 2px)`,
+                    top: `calc(${DID_YOU_KNOW.hotspot.top}% - 10px)`,
+                  }}
+                >
+                  💡 Did You Know?
+                </div>
               </div>
 
               <div className="hint">
                 <div className="hintTitle">How to play</div>
                 <div className="hintBody">
-                  Each site has <strong>3 badges</strong> you can add to your Toolkit:
-                  <strong> Fact Finder</strong>, <strong>Mound Messenger</strong>, and <strong>Earth Explorer</strong>.
+                  Tap a site icon to explore. Or tap <strong>Did You Know?</strong> for fun archaeology facts!
                 </div>
               </div>
             </main>
 
             <footer className="footer">Unearthed Wisconsin • Game Build</footer>
+          </div>
+        );
+      }
+
+      function DidYouKnowPage(){
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+
+              <div className="navRow">
+                <a className="navLink" href="#/">← Map</a>
+                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="title">💡 Did You Know?</h1>
+                <p className="subtitle">Fun facts about archaeology and effigy mounds!</p>
+
+                <ul className="dykList">
+                  <li className="dykItem">
+                    🐾 <strong>Wisconsin is the Effigy Mound Capital of the World!</strong><br/>
+                    Nowhere else on Earth has as many animal-shaped mounds as Wisconsin once did!
+                  </li>
+                  <li className="dykItem">
+                    🕊️ <strong>Some mounds are so big you can only see their shape from the sky.</strong><br/>
+                    Early archaeologists used airplanes to discover bird and bear shapes!
+                  </li>
+                  <li className="dykItem">
+                    🐻 <strong>Bears and birds were the most common mound shapes.</strong><br/>
+                    They may symbolize earth animals (bears) and sky spirits (birds).
+                  </li>
+                  <li className="dykItem">
+                    📡 <strong>Archaeologists can “see underground” without digging.</strong><br/>
+                    Tools like Ground Penetrating Radar and LiDAR help map hidden features.
+                  </li>
+                  <li className="dykItem">
+                    🌽 <strong>Ancient Wisconsin people farmed corn, beans, and squash.</strong><br/>
+                    Hundreds of years before European settlers arrived.
+                  </li>
+                </ul>
+
+                <div style={{marginTop:16, display:"flex", gap:10, flexWrap:"wrap"}}>
+                  <a className="btn" href="#/">Back to map</a>
+                </div>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
           </div>
         );
       }
@@ -619,7 +718,6 @@
         const earnedIds = Object.keys(progress.toolkit || {});
         const earnedItems = [];
 
-        // Pull earned items from all locations
         LOCATIONS.forEach(loc => {
           (loc.toolkitItems || []).forEach(item => {
             if(progress.toolkit?.[item.id]){
@@ -649,6 +747,7 @@
               <div className="navRow">
                 <a className="navLink" href="#/">← Map</a>
                 <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+                <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
                 <button className="btn btn2" type="button" onClick={resetAll}>♻️ Reset Progress</button>
               </div>
             </header>
@@ -705,7 +804,6 @@
           update(p => {
             p.visited = p.visited || {};
             p.visited[loc.id] = true;
-            // ensure flags exist
             p.flags = p.flags || { shared:{}, directions:{} };
             p.flags.shared = p.flags.shared || {};
             p.flags.directions = p.flags.directions || {};
@@ -748,13 +846,6 @@
           });
         };
 
-        const groups = [];
-        tasks.forEach(t => {
-          const g = t.group || "Adventure";
-          if(!groups.includes(g)) groups.push(g);
-        });
-
-        // Flags: share + directions
         const sharedFlag = !!progress.flags?.shared?.[loc.id];
         const directionsFlag = !!progress.flags?.directions?.[loc.id];
 
@@ -779,14 +870,13 @@
           });
         };
 
-        // Earn toolkit items (manual Earned button)
         const toolkitItems = loc.toolkitItems || [];
         const earnedToolkit = progress.toolkit || {};
 
         const eligibleFor = (item) => {
-          if(item.type === "fact") return true;                // on page = eligible
-          if(item.type === "share") return sharedFlag;         // must use share button first
-          if(item.type === "visit") return directionsFlag;     // must open directions first
+          if(item.type === "fact") return true;
+          if(item.type === "share") return sharedFlag;
+          if(item.type === "visit") return directionsFlag;
           return false;
         };
 
@@ -804,6 +894,12 @@
           });
         };
 
+        const groups = [];
+        tasks.forEach(t => {
+          const g = t.group || "Adventure";
+          if(!groups.includes(g)) groups.push(g);
+        });
+
         return (
           <div className="page">
             <header className="topbar">
@@ -816,6 +912,7 @@
                 <a className="navLink" href="#/">← Map</a>
                 <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
                 <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+                <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
               </div>
             </header>
 
@@ -879,14 +976,7 @@
                     </div>
 
                     <div className="checklist">
-                      {(function(){
-                        const gs = [];
-                        tasks.forEach(t => {
-                          const g = t.group || "Adventure";
-                          if(!gs.includes(g)) gs.push(g);
-                        });
-                        return gs;
-                      })().map(group => (
+                      {groups.map(group => (
                         <div key={group}>
                           <div className="groupTitle">{group}</div>
                           <div className="checklist" style={{marginTop:8}}>
@@ -910,14 +1000,11 @@
                   </section>
                 ) : null}
 
-                {/* Badges back at the bottom of each page */}
                 {toolkitItems.length ? (
                   <section className="panel" style={{marginTop: 14}}>
                     <h2>🏅 Earn Badges</h2>
                     <div className="smallMuted" style={{marginBottom:10}}>
                       Earn 3 badges at each site — they’ll show up in your Toolkit.
-                      <br/>
-                      <strong>Tip:</strong> Share and Directions unlock those badges.
                     </div>
 
                     <div className="kitGrid">
@@ -943,7 +1030,7 @@
                                   onClick={() => earnToolkitItem(item.id)}
                                   disabled={already || !eligible}
                                 >
-                                  {already ? "Earned" : "Earned"}
+                                  Earned
                                 </button>
                               </div>
                             </div>
@@ -980,6 +1067,7 @@
         if(parts[0] === "location" && parts[1]) return <LocationPage id={parts[1]} progress={progress} update={update} />;
         if(parts[0] === "toolkit") return <ToolkitPage progress={progress} update={update} />;
         if(parts[0] === "etiquette") return <EtiquettePage />;
+        if(parts[0] === "did-you-know") return <DidYouKnowPage />;
 
         return <Cover progress={progress} />;
       }
