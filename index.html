@@ -9,28 +9,27 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-    <!-- Babel lets us write JSX directly in this file (perfect for Koder) -->
+    <!-- Babel for JSX in one file (Koder-friendly) -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <style>
       :root{
-        --bg:#0b1020;
+        --bg:#000; /* SOLID BLACK */
         --card:rgba(255,255,255,.08);
         --card2:rgba(255,255,255,.06);
         --text:rgba(255,255,255,.92);
         --muted:rgba(255,255,255,.72);
         --line:rgba(255,255,255,.14);
         --accent:#8cffc7;
+        --accent2:#61bbff;
+        --warn:#ffd36b;
       }
       *{box-sizing:border-box}
       html,body{height:100%}
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-        background:
-          radial-gradient(1200px 600px at 20% 0%, rgba(140, 255, 199, 0.12), transparent 60%),
-          radial-gradient(1000px 600px at 80% 20%, rgba(97, 187, 255, 0.12), transparent 60%),
-          var(--bg);
+        background: var(--bg);
         color:var(--text);
       }
       .page{min-height:100%;display:flex;flex-direction:column}
@@ -39,11 +38,12 @@
         display:flex;align-items:center;justify-content:space-between;
         padding:14px 18px;border-bottom:1px solid var(--line);
         backdrop-filter: blur(10px);
-        background: rgba(11, 16, 32, 0.65);
+        background: rgba(0,0,0,0.65);
       }
       .brand{display:flex;align-items:center;gap:10px}
       .brandDot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(140,255,199,.12)}
       .brandText{font-weight:800;letter-spacing:.2px}
+      .navRow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
       .navLink{
         color:var(--muted);text-decoration:none;border:1px solid var(--line);
         padding:8px 10px;border-radius:10px;display:inline-flex;gap:8px;align-items:center
@@ -81,6 +81,27 @@
         box-shadow: 0 0 0 6px rgba(97, 187, 255, 0.18);
       }
 
+      /* Visited stamp overlay (non-clickable) */
+      .stamp{
+        position:absolute;
+        pointer-events:none;
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.18);
+        background: rgba(0,0,0,.55);
+        color: rgba(255,255,255,.90);
+        font-size:12px;
+        backdrop-filter: blur(6px);
+      }
+      .stampDot{
+        width:8px;height:8px;border-radius:999px;
+        background: var(--accent);
+        box-shadow:0 0 0 4px rgba(140,255,199,.14);
+      }
+
       .hint{
         border:1px solid var(--line);
         border-radius:18px;padding:14px 16px;
@@ -89,13 +110,11 @@
       .hintTitle{font-weight:700;margin-bottom:6px}
       .hintBody{color:var(--muted);line-height:1.45}
       .title{margin:0 0 6px;font-size:28px;letter-spacing:.2px}
-      .subtitle{margin:0 0 16px;color:var(--muted);line-height:1.5}
+      .subtitle{margin:0 0 14px;color:var(--muted);line-height:1.5}
 
-      .grid{display:grid;gap:14px;grid-template-columns:1fr}
-      @media (min-width: 860px){.grid{grid-template-columns:.9fr 1.1fr}}
       .panel{
         border:1px solid var(--line);
-        background: rgba(0,0,0,.12);
+        background: rgba(0,0,0,.22);
         border-radius:16px;padding:14px;
       }
       .panel h2{margin:0 0 10px;font-size:16px;color:rgba(255,255,255,.88)}
@@ -107,12 +126,103 @@
         color:var(--text);text-decoration:none;cursor:pointer;
       }
       .btn:hover{border-color: rgba(140,255,199,.5); box-shadow:0 0 0 5px rgba(140,255,199,.12)}
+      .btn:disabled{opacity:.5; cursor:not-allowed;}
+      .btn2{border-color: rgba(97,187,255,.35);}
+      .btn2:hover{border-color: rgba(97,187,255,.75); box-shadow:0 0 0 5px rgba(97,187,255,.14);}
       .footer{color:rgba(255,255,255,.55);text-align:center;padding:18px 10px 24px}
       .pill{
         display:inline-flex;align-items:center;gap:8px;
         padding:8px 10px;border:1px solid rgba(255,255,255,.16);
         border-radius:999px;background: rgba(255,255,255,.05);
         color:var(--muted);font-size:13px;
+      }
+
+      /* Checklist */
+      .checklist{display:grid;gap:10px}
+      .taskRow{
+        display:flex;gap:10px;align-items:flex-start;
+        padding:10px;
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:14px;
+        background: rgba(255,255,255,.03);
+      }
+      .taskRow input{margin-top:3px; transform: scale(1.1);}
+      .taskText{color: rgba(255,255,255,.80); line-height:1.45}
+      .taskDone .taskText{color: rgba(255,255,255,.62); text-decoration: line-through;}
+      .groupTitle{
+        margin-top:8px;
+        font-weight:800;
+        color: rgba(255,255,255,.88);
+        letter-spacing:.2px;
+      }
+      .smallMuted{color: var(--muted); font-size:13px; line-height:1.45}
+
+      /* Toolkit items */
+      .kitGrid{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:10px;
+      }
+      @media (min-width: 720px){
+        .kitGrid{grid-template-columns: 1fr 1fr;}
+      }
+      .kitItem{
+        border:1px solid rgba(255,255,255,.14);
+        border-radius:16px;
+        background: rgba(255,255,255,.03);
+        padding:12px;
+        display:flex;
+        gap:12px;
+        align-items:flex-start;
+      }
+      .kitIcon{
+        width:38px;height:38px;border-radius:12px;
+        display:flex;align-items:center;justify-content:center;
+        background: rgba(140,255,199,.10);
+        border:1px solid rgba(140,255,199,.18);
+        font-size:18px;
+        flex: 0 0 auto;
+      }
+      .kitName{font-weight:900; letter-spacing:.2px}
+      .kitDesc{color: rgba(255,255,255,.72); font-size:13px; line-height:1.45; margin-top:4px;}
+      .tagRow{margin-top:8px; display:flex; gap:8px; flex-wrap:wrap}
+      .tag{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(0,0,0,.18);
+        color: rgba(255,255,255,.78);
+        font-size:12px;
+      }
+      .warnTag{
+        border-color: rgba(255,211,107,.35);
+        color: rgba(255,211,107,.95);
+        background: rgba(255,211,107,.08);
+      }
+
+      /* Etiquette page styling */
+      .bigTitle{
+        font-size:26px;
+        font-weight:900;
+        margin:0 0 12px;
+        letter-spacing:.2px;
+      }
+      .etList{
+        margin:0;
+        padding-left:18px;
+        line-height:1.75;
+        color: rgba(255,255,255,.82);
+      }
+      .etImage{
+        width:100%;
+        height:auto;
+        display:block;
+        border-radius:14px;
+        border:1px solid rgba(255,255,255,.14);
+        margin-top:14px;
       }
     </style>
   </head>
@@ -121,12 +231,104 @@
     <div id="root"></div>
 
     <script type="text/babel">
+      // -----------------------------
+      // Helpers
+      // -----------------------------
+      function safeClone(obj){
+        try{
+          if(typeof structuredClone === "function") return structuredClone(obj);
+        }catch(e){}
+        return JSON.parse(JSON.stringify(obj));
+      }
+
+      function openMaps(url){
+        if(!url) return;
+        // iPad/Safari: window.open can be blocked, so use fallback
+        const win = window.open(url, "_blank");
+        if(!win) window.location.href = url;
+      }
+
+      async function tryShare(text){
+        try{
+          if(navigator.share){
+            await navigator.share({ text });
+            return true;
+          }
+        }catch(e){}
+        try{
+          await navigator.clipboard.writeText(text);
+          alert("Copied! Paste this into your post:\n\n" + text);
+          return true;
+        }catch(e){
+          alert("Please post with:\n\n" + text);
+          return false;
+        }
+      }
+
+      // -----------------------------
+      // Data
+      // -----------------------------
+      const COMMON_ADVENTURE_TASKS = (prefix) => ([
+        { id: `${prefix}-spot`, group: "Adventure Lab", text: "Can you spot any of the mounds described in the facts above?" },
+        { id: `${prefix}-wildlife`, group: "Adventure Lab", text: "Look for wildlife or plants around the mounds. (Look, don’t touch.) Draw a picture in your field notebook." },
+        { id: `${prefix}-notes`, group: "Field Notebook", text: "Sketch or take notes of your favorite area in your field notebook." },
+      ]);
+
+      // 3 earnable toolkit badges per site:
+      // 1) FACT FINDER (eligible immediately on page)
+      // 2) MOUND MESSENGER (eligible after share button used)
+      // 3) EARTH EXPLORER (eligible after directions button used)
+      function makeToolkitBadges(locId, icons){
+        return [
+          {
+            id: `${locId}-fact-finder`,
+            name: "FACT FINDER",
+            icon: icons.fact,
+            description: "Earn this after reading the facts on this page.",
+            earnRule: "Available on this page.",
+            type: "fact"
+          },
+          {
+            id: `${locId}-mound-messenger`,
+            name: "MOUND MESSENGER",
+            icon: icons.share,
+            description: "Earn this after sharing with #UnearthedWisconsin.",
+            earnRule: "Use the Share button above.",
+            type: "share"
+          },
+          {
+            id: `${locId}-earth-explorer`,
+            name: "EARTH EXPLORER",
+            icon: icons.visit,
+            description: "Earn this after opening driving directions to the site.",
+            earnRule: "Use the Driving Directions button above.",
+            type: "visit"
+          },
+        ];
+      }
+
       const LOCATIONS = [
         {
           id: "high-cliff",
           title: "High Cliff",
           short: "Dramatic views above Lake Winnebago and classic Wisconsin outdoor vibes.",
           hotspot: { left: 64, top: 6, width: 32, height: 14 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=High%20Cliff%20State%20Park%2C%20Sherwood%2C%20WI&travelmode=driving",
+
+          facts: [
+            "Location: Neenah, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "High Cliff has several effigy mounds, including bear, panther, and bird shapes.",
+            "Mounds are located on high bluffs overlooking Lake Winnebago.",
+            "The site offers clues about ceremonial practices of Late Woodland people.",
+            "Archaeologists have recorded the shapes and sizes of over 40 mounds in the park.",
+          ],
+          gallery: ["./Highcliff1.png", "./Highcliff2.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("hc"),
+
+          // High Cliff: Compass, Magnifying glass, wheelbarrow
+          toolkitItems: makeToolkitBadges("high-cliff", { visit:"🧭", share:"🔦", fact:"🔍" }),
         },
 
         {
@@ -134,8 +336,7 @@
           title: "Lizard Mound",
           short: "One of the most well-preserved Native American effigy mound sites in the nation!",
           hotspot: { left: 70, top: 41, width: 24, height: 18 },
-
-          mapUrl: "https://www.google.com/maps/dir//2121+Co+Hwy+A,+West+Bend,+WI+53090/@43.2802061,-88.4403709,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x8804f531fad36d19:0x8c43669079f0ac40!2m2!1d-88.1393647!2d43.463246?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D",
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=2121%20Co%20Hwy%20A%2C%20West%20Bend%2C%20WI%2053090&travelmode=driving",
 
           facts: [
             "Location: Farmington, WI",
@@ -151,52 +352,148 @@
             "The site was first surveyed by archaeologists in the 1800s.",
             "The mounds are protected and sacred to Native American tribes today.",
           ],
-
           gallery: ["./LizardMoundMap.png", "./LizardMound.png"],
 
           adventureLabTitle: "Adventure Lab",
-          adventureLab: [
-            "Animal Mounds",
-            "• Can you find a lizard-shaped mound?",
-            "• Can you spot a bird-shaped mound?",
-            "• Look for a bear-shaped mound.",
-            "• Notice which direction the mounds are facing—some line up with the sun!",
-            "",
-            "Geometric Mounds",
-            "• Look for cone-shaped mounds.",
-            "• Can you see long, straight mounds?",
-            "• Imagine what these shapes might have been used for (ceremony? burial?).",
-            "",
-            "Nature Hunt",
-            "• Look for plants and wildlife around the mounds.",
-            "",
-            "RECORD IN YOUR FIELD NOTEBOOK:",
-            "✏️ Draw Your Favorite: Sketch the shapes of the mounds you see in your field notebook!",
+          adventureTasks: [
+            { id: "lm-animal-lizard", group: "Animal Mounds", text: "Find a lizard-shaped mound." },
+            { id: "lm-animal-bird", group: "Animal Mounds", text: "Spot a bird-shaped mound." },
+            { id: "lm-animal-bear", group: "Animal Mounds", text: "Look for a bear-shaped mound." },
+            { id: "lm-sun-align", group: "Animal Mounds", text: "Notice which direction the mounds face—any line up with the sun?" },
+            { id: "lm-cone", group: "Geometric Mounds", text: "Find a cone-shaped mound." },
+            { id: "lm-straight", group: "Geometric Mounds", text: "Find a long, straight mound." },
+            { id: "lm-imagine", group: "Geometric Mounds", text: "Imagine what the shapes were used for (ceremony? symbolic? burial?)." },
+            { id: "lm-nature", group: "Nature Hunt", text: "Spot plants or wildlife around the mounds (look, don’t disturb)." },
+            { id: "lm-sketch", group: "Field Notebook", text: "Sketch your favorite mound shape in your field notebook." },
           ],
+
+          // Lizard Mound: backpack, pick ax, clipboard
+          toolkitItems: makeToolkitBadges("lizard-mound", { visit:"🎒", share:"⛏️", fact:"📋" }),
         },
 
         {
           id: "pike-lake",
           title: "Pike Lake",
           short: "A southeast Wisconsin lake stop—great for nature breaks and looped adventures.",
-          hotspot: { left: 33, top: 47, width: 38, height: 20 },
+          hotspot: { left: 40, top: 50, width: 28, height: 15 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=3250%20Kettle%20Moraine%20Rd%2C%20Hartford%2C%20WI%2053027&travelmode=driving",
+
+          facts: [
+            "Location: Hartford, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "Pike Lake had 9 burial and effigy mounds from the Late Woodland period.",
+            "Mounds include conical and linear shapes, not just animals.",
+            "The lake area provided fish, water, and other resources for mound builders.",
+            "Excavations revealed pottery fragments and stone tools near some mounds.",
+          ],
+          gallery: ["./Dock.png", "./Lake.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("pl"),
+
+          // Pike Lake: Dust pan, Trowel, Map
+          toolkitItems: makeToolkitBadges("pike-lake", { visit:"🧹", share:"🪨", fact:"🗺️" }),
         },
+
         {
           id: "aztalan-state-park",
           title: "Aztalan State Park",
           short: "One of Wisconsin’s most famous ancient places—an iconic archaeological site.",
-          hotspot: { left: 7, top: 56, width: 28, height: 16 },
+          hotspot: { left: 7, top: 66, width: 28, height: 16 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Aztalan%20State%20Park%2C%20Lake%20Mills%2C%20WI&travelmode=driving",
+
+          facts: [
+            "Location: Jefferson County, WI",
+            "Time Period: ~1000–1300 A.D.",
+            "Aztalan was a Mississippian culture village with homes, plazas, and stockade walls.",
+            "The stockade was made of wooden posts and surrounded the village for protection.",
+            "Archaeologists found house mounds where longhouses once stood.",
+            "Large open plaza areas were used for ceremonies and public gatherings.",
+            "The village was built along the Crawfish River for water and fishing.",
+            "Stone tools, pottery, and ornaments were uncovered during excavations.",
+            "Villagers farmed corn, beans, and squash (the “Three Sisters”).",
+          ],
+          gallery: ["./Aztalan1.png", "./Aztalan2.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("az"),
+
+          // Aztalan: Tape measure, dusting brush, work boots
+          toolkitItems: makeToolkitBadges("aztalan-state-park", { visit:"🥾", share:"🖌️", fact:"📏" }),
         },
+
         {
           id: "koshkonong-effigy-mounds",
           title: "Koshkonong Effigy Mounds",
           short: "An effigy mound area—great for learning how landscapes can be ‘written’ with earthworks.",
           hotspot: { left: 8, top: 83, width: 44, height: 16 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Koshkonong%20Mounds%20Rd%2C%20Fort%20Atkinson%2C%20WI%2053538&travelmode=driving",
+
+          facts: [
+            "Location: Jefferson County, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "Koshkonong has snake, lizard, and bird effigy mounds.",
+            "The mounds were built for ceremonial, spiritual, or clan purposes.",
+            "Excavations have found some burial remains in select mounds.",
+            "Mounds are located on hills and flat areas, giving clues about placement importance.",
+            "The site has large animal-shaped mounds that are visible from above.",
+            "The most outstanding mound in the park is the 222 foot Turtle Mound.",
+          ],
+          gallery: ["./Sign.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("ko"),
+
+          // Koshkonong: Work gloves, Shovel, shifting box
+          toolkitItems: makeToolkitBadges("koshkonong-effigy-mounds", { visit:"🧤", share:"🔨", fact:"🧺" }),
         },
       ];
 
       function getLoc(id){ return LOCATIONS.find(l => l.id === id); }
 
+      // -----------------------------
+      // Storage helpers (saves progress)
+      // -----------------------------
+      const STORAGE_KEY = "uw_progress_v3_toolkit";
+
+      function loadProgress(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if(!raw) return { visited: {}, tasks: {}, toolkit: {}, flags: { shared:{}, directions:{} } };
+          const parsed = JSON.parse(raw);
+          return {
+            visited: parsed.visited || {},
+            tasks: parsed.tasks || {},
+            toolkit: parsed.toolkit || {},
+            flags: parsed.flags || { shared:{}, directions:{} },
+          };
+        }catch(e){
+          return { visited: {}, tasks: {}, toolkit: {}, flags: { shared:{}, directions:{} } };
+        }
+      }
+
+      function saveProgress(next){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      }
+
+      function useProgress(){
+        const [progress, setProgress] = React.useState(loadProgress());
+
+        const update = (fn) => {
+          setProgress(prev => {
+            const next = fn(safeClone(prev));
+            saveProgress(next);
+            return next;
+          });
+        };
+
+        return [progress, update];
+      }
+
+      // -----------------------------
+      // Simple routing using hash
+      // #/  -> cover
+      // #/location/:id
+      // #/toolkit
+      // #/etiquette
+      // -----------------------------
       function useHashRoute(){
         const [hash, setHash] = React.useState(window.location.hash || "#/");
         React.useEffect(() => {
@@ -207,7 +504,10 @@
         return [hash, (next) => { window.location.hash = next; }];
       }
 
-      function Cover(){
+      // -----------------------------
+      // Pages
+      // -----------------------------
+      function Cover({ progress }){
         const [, nav] = useHashRoute();
 
         return (
@@ -217,7 +517,12 @@
                 <span className="brandDot" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
-              <span className="pill">Game Map • Tap an icon</span>
+
+              <div className="navRow">
+                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+                <span className="pill">Game Map • Tap an icon</span>
+              </div>
             </header>
 
             <main className="content">
@@ -225,37 +530,188 @@
                 <img className="coverImg" src="./cover.png" alt="Unearthed Wisconsin map cover" />
 
                 {LOCATIONS.map(loc => (
-                  <button
-                    key={loc.id}
-                    className="hotspot"
-                    style={{
-                      left: `${loc.hotspot.left}%`,
-                      top: `${loc.hotspot.top}%`,
-                      width: `${loc.hotspot.width}%`,
-                      height: `${loc.hotspot.height}%`,
-                    }}
-                    onClick={() => nav(`#/location/${loc.id}`)}
-                    aria-label={`Open ${loc.title}`}
-                    title={loc.title}
-                  />
+                  <React.Fragment key={loc.id}>
+                    <button
+                      className="hotspot"
+                      style={{
+                        left: `${loc.hotspot.left}%`,
+                        top: `${loc.hotspot.top}%`,
+                        width: `${loc.hotspot.width}%`,
+                        height: `${loc.hotspot.height}%`,
+                      }}
+                      onClick={() => nav(`#/location/${loc.id}`)}
+                      aria-label={`Open ${loc.title}`}
+                      title={loc.title}
+                    />
+
+                    {progress.visited?.[loc.id] ? (
+                      <div
+                        className="stamp"
+                        style={{
+                          left: `calc(${loc.hotspot.left}% + 2px)`,
+                          top: `calc(${loc.hotspot.top}% - 10px)`,
+                        }}
+                      >
+                        <span className="stampDot"></span>
+                        Visited
+                      </div>
+                    ) : null}
+                  </React.Fragment>
                 ))}
               </div>
 
               <div className="hint">
                 <div className="hintTitle">How to play</div>
                 <div className="hintBody">
-                  Tap an icon to open a location page with facts, pictures, and an Adventure Lab.
+                  Each site has <strong>3 badges</strong> you can add to your Toolkit:
+                  <strong> Fact Finder</strong>, <strong>Mound Messenger</strong>, and <strong>Earth Explorer</strong>.
                 </div>
               </div>
             </main>
 
-            <footer className="footer">Unearthed Wisconsin • Version 1</footer>
+            <footer className="footer">Unearthed Wisconsin • Game Build</footer>
           </div>
         );
       }
 
-      function LocationPage({ id }){
+      function EtiquettePage(){
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+
+              <div className="navRow">
+                <a className="navLink" href="#/">← Map</a>
+                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="bigTitle">Respectful Visiting Etiquette for Archaeology Mound Sites</h1>
+
+                <ol className="etList">
+                  <li><strong>Stay on the Trails</strong></li>
+                  <li><strong>Do Not Climb on the Mounds</strong></li>
+                  <li><strong>Leave Everything Exactly as You Found It</strong></li>
+                  <li><strong>No Digging—Ever</strong></li>
+                  <li><strong>Keep the Site Clean</strong></li>
+                  <li><strong>Be Quiet and Respectful</strong></li>
+                  <li><strong>Teach Others to Be Respectful Too</strong></li>
+                  <li><strong>Keep Pets Leashed and on the Trail</strong></li>
+                  <li><strong>Take Only Photos</strong></li>
+                  <li><strong>Follow Park Signs and Rules</strong></li>
+                </ol>
+
+                <img className="etImage" src="./hike.png" alt="Respectful hiking illustration" />
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+          </div>
+        );
+      }
+
+      function ToolkitPage({ progress, update }){
+        const earnedIds = Object.keys(progress.toolkit || {});
+        const earnedItems = [];
+
+        // Pull earned items from all locations
+        LOCATIONS.forEach(loc => {
+          (loc.toolkitItems || []).forEach(item => {
+            if(progress.toolkit?.[item.id]){
+              earnedItems.push({
+                ...item,
+                earnedAt: progress.toolkit[item.id].earnedAt,
+                earnedFrom: progress.toolkit[item.id].earnedFrom,
+              });
+            }
+          });
+        });
+
+        const resetAll = () => {
+          if(!confirm("Reset all saved progress on this device?")) return;
+          const empty = { visited: {}, tasks: {}, toolkit: {}, flags: { shared:{}, directions:{} } };
+          saveProgress(empty);
+          update(() => empty);
+        };
+
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+              <div className="navRow">
+                <a className="navLink" href="#/">← Map</a>
+                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+                <button className="btn btn2" type="button" onClick={resetAll}>♻️ Reset Progress</button>
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="title">🧰 Archaeology Tool Kit</h1>
+                <p className="subtitle">Badges you’ve earned across all sites.</p>
+
+                <div className="panel">
+                  <div className="tagRow">
+                    <span className="tag">Visited sites: <strong>{Object.keys(progress.visited || {}).length}</strong></span>
+                    <span className="tag">Badges earned: <strong>{earnedIds.length}</strong></span>
+                    {earnedIds.length === 0 ? <span className="tag warnTag">No badges earned yet — open a site!</span> : null}
+                  </div>
+                </div>
+
+                <div className="panel" style={{marginTop:14}}>
+                  <h2>Your earned badges</h2>
+
+                  {earnedItems.length ? (
+                    <div className="kitGrid">
+                      {earnedItems.map(item => (
+                        <div key={item.id} className="kitItem">
+                          <div className="kitIcon">{item.icon}</div>
+                          <div>
+                            <div className="kitName">{item.name}</div>
+                            <div className="kitDesc">{item.description}</div>
+                            <div className="tagRow">
+                              <span className="tag">Earned at: <strong>{new Date(item.earnedAt).toLocaleString()}</strong></span>
+                              <span className="tag">From: <strong>{item.earnedFrom}</strong></span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="smallMuted">No badges earned yet. Open a location and earn badges at the bottom of the page.</div>
+                  )}
+                </div>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+          </div>
+        );
+      }
+
+      function LocationPage({ id, progress, update }){
         const loc = getLoc(id);
+
+        React.useEffect(() => {
+          if(!loc) return;
+          update(p => {
+            p.visited = p.visited || {};
+            p.visited[loc.id] = true;
+            // ensure flags exist
+            p.flags = p.flags || { shared:{}, directions:{} };
+            p.flags.shared = p.flags.shared || {};
+            p.flags.directions = p.flags.directions || {};
+            return p;
+          });
+        }, [id]);
 
         if(!loc){
           return (
@@ -278,6 +734,76 @@
           );
         }
 
+        const tasks = loc.adventureTasks || [];
+        const taskStateForLoc = (progress.tasks && progress.tasks[loc.id]) ? progress.tasks[loc.id] : {};
+        const completedCount = tasks.filter(t => taskStateForLoc[t.id]).length;
+        const totalCount = tasks.length;
+
+        const toggleTask = (taskId) => {
+          update(p => {
+            p.tasks = p.tasks || {};
+            p.tasks[loc.id] = p.tasks[loc.id] || {};
+            p.tasks[loc.id][taskId] = !p.tasks[loc.id][taskId];
+            return p;
+          });
+        };
+
+        const groups = [];
+        tasks.forEach(t => {
+          const g = t.group || "Adventure";
+          if(!groups.includes(g)) groups.push(g);
+        });
+
+        // Flags: share + directions
+        const sharedFlag = !!progress.flags?.shared?.[loc.id];
+        const directionsFlag = !!progress.flags?.directions?.[loc.id];
+
+        const doDirections = () => {
+          if(loc.mapUrl) openMaps(loc.mapUrl);
+          update(p => {
+            p.flags = p.flags || { shared:{}, directions:{} };
+            p.flags.directions = p.flags.directions || {};
+            p.flags.directions[loc.id] = true;
+            return p;
+          });
+        };
+
+        const doShare = async () => {
+          const text = `We explored ${loc.title}! #UnearthedWisconsin`;
+          await tryShare(text);
+          update(p => {
+            p.flags = p.flags || { shared:{}, directions:{} };
+            p.flags.shared = p.flags.shared || {};
+            p.flags.shared[loc.id] = true;
+            return p;
+          });
+        };
+
+        // Earn toolkit items (manual Earned button)
+        const toolkitItems = loc.toolkitItems || [];
+        const earnedToolkit = progress.toolkit || {};
+
+        const eligibleFor = (item) => {
+          if(item.type === "fact") return true;                // on page = eligible
+          if(item.type === "share") return sharedFlag;         // must use share button first
+          if(item.type === "visit") return directionsFlag;     // must open directions first
+          return false;
+        };
+
+        const earnToolkitItem = (itemId) => {
+          const item = toolkitItems.find(x => x.id === itemId);
+          if(!item) return;
+          if(!eligibleFor(item)) return;
+
+          update(p => {
+            p.toolkit = p.toolkit || {};
+            if(!p.toolkit[itemId]){
+              p.toolkit[itemId] = { earnedAt: Date.now(), earnedFrom: loc.title };
+            }
+            return p;
+          });
+        };
+
         return (
           <div className="page">
             <header className="topbar">
@@ -285,7 +811,12 @@
                 <span className="brandDot" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
-              <a className="navLink" href="#/">← Map</a>
+
+              <div className="navRow">
+                <a className="navLink" href="#/">← Map</a>
+                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+              </div>
             </header>
 
             <main className="content">
@@ -293,13 +824,19 @@
                 <h1 className="title">{loc.title}</h1>
                 <p className="subtitle">{loc.short}</p>
 
-                {loc.mapUrl ? (
-                  <div style={{marginTop: 10, marginBottom: 10, display: "flex", gap: 10, flexWrap: "wrap"}}>
-                    <a className="btn" href={loc.mapUrl} rel="noopener noreferrer">
+                <div style={{marginTop: 10, marginBottom: 10, display:"flex", gap:10, flexWrap:"wrap"}}>
+                  <a className="btn btn2" href="#/etiquette">📜 Etiquette Page</a>
+
+                  {loc.mapUrl ? (
+                    <button className="btn" type="button" onClick={doDirections}>
                       🚗 Open Driving Directions
-                    </a>
-                  </div>
-                ) : null}
+                    </button>
+                  ) : null}
+
+                  <button className="btn btn2" type="button" onClick={doShare}>
+                    📣 Share #UnearthedWisconsin
+                  </button>
+                </div>
 
                 {loc.facts?.length ? (
                   <section className="panel">
@@ -330,17 +867,96 @@
                   </section>
                 ) : null}
 
-                {loc.adventureLab?.length ? (
+                {tasks.length ? (
                   <section className="panel" style={{marginTop: 14}}>
-                    <h2>{loc.adventureLabTitle || "Adventure Lab"}</h2>
-                    <div style={{whiteSpace:"pre-wrap", lineHeight:1.7, color:"rgba(255,255,255,.78)"}}>
-                      {loc.adventureLab.join("\n")}
+                    <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:10, flexWrap:"wrap"}}>
+                      <h2>{loc.adventureLabTitle || "Adventure Lab"}</h2>
+                      <span className="pill">Progress: {completedCount}/{totalCount}</span>
+                    </div>
+
+                    <div className="smallMuted" style={{marginBottom:10}}>
+                      Check items as you complete them — this saves automatically on this device.
+                    </div>
+
+                    <div className="checklist">
+                      {(function(){
+                        const gs = [];
+                        tasks.forEach(t => {
+                          const g = t.group || "Adventure";
+                          if(!gs.includes(g)) gs.push(g);
+                        });
+                        return gs;
+                      })().map(group => (
+                        <div key={group}>
+                          <div className="groupTitle">{group}</div>
+                          <div className="checklist" style={{marginTop:8}}>
+                            {tasks.filter(t => (t.group || "Adventure") === group).map(t => {
+                              const done = !!taskStateForLoc[t.id];
+                              return (
+                                <label key={t.id} className={"taskRow" + (done ? " taskDone" : "")}>
+                                  <input
+                                    type="checkbox"
+                                    checked={done}
+                                    onChange={() => toggleTask(t.id)}
+                                  />
+                                  <div className="taskText">{t.text}</div>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ) : null}
+
+                {/* Badges back at the bottom of each page */}
+                {toolkitItems.length ? (
+                  <section className="panel" style={{marginTop: 14}}>
+                    <h2>🏅 Earn Badges</h2>
+                    <div className="smallMuted" style={{marginBottom:10}}>
+                      Earn 3 badges at each site — they’ll show up in your Toolkit.
+                      <br/>
+                      <strong>Tip:</strong> Share and Directions unlock those badges.
+                    </div>
+
+                    <div className="kitGrid">
+                      {toolkitItems.map(item => {
+                        const already = !!earnedToolkit[item.id];
+                        const eligible = eligibleFor(item);
+
+                        return (
+                          <div key={item.id} className="kitItem">
+                            <div className="kitIcon">{item.icon}</div>
+                            <div style={{flex:1}}>
+                              <div className="kitName">{item.name}</div>
+                              <div className="kitDesc">{item.description}</div>
+                              <div className="tagRow">
+                                <span className="tag">How to earn: <strong>{item.earnRule}</strong></span>
+                                {already ? <span className="tag">✅ Earned</span> : (eligible ? <span className="tag">Ready</span> : <span className="tag warnTag">Not yet</span>)}
+                              </div>
+
+                              <div style={{marginTop:10, display:"flex", gap:10, flexWrap:"wrap"}}>
+                                <button
+                                  className="btn btn2"
+                                  type="button"
+                                  onClick={() => earnToolkitItem(item.id)}
+                                  disabled={already || !eligible}
+                                >
+                                  {already ? "Earned" : "Earned"}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </section>
                 ) : null}
 
                 <div style={{marginTop:16, display:"flex", gap:10, flexWrap:"wrap"}}>
                   <a className="btn" href="#/">Back to map</a>
+                  <a className="btn btn2" href="#/toolkit">View Tool Kit</a>
                 </div>
               </div>
             </main>
@@ -350,15 +966,22 @@
         );
       }
 
+      // -----------------------------
+      // App
+      // -----------------------------
       function App(){
         const [hash] = useHashRoute();
+        const [progress, update] = useProgress();
+
         const cleaned = (hash || "#/").replace(/^#/, "");
         const parts = cleaned.split("/").filter(Boolean);
 
-        if(parts.length === 0) return <Cover />;
-        if(parts[0] === "location" && parts[1]) return <LocationPage id={parts[1]} />;
+        if(parts.length === 0) return <Cover progress={progress} />;
+        if(parts[0] === "location" && parts[1]) return <LocationPage id={parts[1]} progress={progress} update={update} />;
+        if(parts[0] === "toolkit") return <ToolkitPage progress={progress} update={update} />;
+        if(parts[0] === "etiquette") return <EtiquettePage />;
 
-        return <Cover />;
+        return <Cover progress={progress} />;
       }
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
