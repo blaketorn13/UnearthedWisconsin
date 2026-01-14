@@ -136,11 +136,13 @@
         border:1px solid rgba(0,0,0,.18);
         background: rgba(255,255,255,.62);
         color:var(--text);text-decoration:none;cursor:pointer;
+        font-size:14px; /* ensures consistent button font size */
+        line-height:1.2;
       }
       .btn:hover{border-color: rgba(42,127,88,.55); box-shadow:0 0 0 5px rgba(42,127,88,.14)}
       .btn:disabled{opacity:.5; cursor:not-allowed;}
       .btn2{border-color: rgba(28,111,214,.35);}
-      .btn2:hover{border-color: rgba(28,111,214,.75); box-shadow:0 0 0 5px rgba(28,111,214,.14);}
+      .btn2:hover{border-color: rgba(28,111,214,.75); box-shadow: 0 0 0 5px rgba(28,111,214,.14);}
       .footer{color:rgba(0,0,0,.60);text-align:center;padding:18px 10px 24px}
       .pill{
         display:inline-flex;align-items:center;gap:8px;
@@ -413,13 +415,8 @@
     <div id="root"></div>
 
     <script type="text/babel">
-      // -----------------------------
-      // Helpers
-      // -----------------------------
       function safeClone(obj){
-        try{
-          if(typeof structuredClone === "function") return structuredClone(obj);
-        }catch(e){}
+        try{ if(typeof structuredClone === "function") return structuredClone(obj); }catch(e){}
         return JSON.parse(JSON.stringify(obj));
       }
 
@@ -446,9 +443,7 @@
         }
       }
 
-      // -----------------------------
-      // Certificate rendering
-      // -----------------------------
+      // Certificate
       const CERT_BG_SRC = "./Certificate.png";
       const NAME_BOX = { x: 0.18, y: 0.36, w: 0.64, h: 0.08 };
       const DATE_BOX = { x: 0.0,  y: 0.73, w: 0.64, h: 0.06 };
@@ -481,7 +476,6 @@
 
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0,0,w,h);
-
         ctx.drawImage(img, 0, 0, w, h);
 
         ctx.fillStyle = "rgba(0,0,0,.92)";
@@ -502,7 +496,6 @@
 
         const rawDate = (dateStr || "").trim();
         let dateText = rawDate;
-
         if(rawDate && /^\d{4}-\d{2}-\d{2}$/.test(rawDate)){
           const [yyyy, mm, dd] = rawDate.split("-");
           dateText = `${mm}-${dd}-${yyyy}`;
@@ -522,9 +515,6 @@
         return canvas;
       }
 
-      // -----------------------------
-      // Storage helpers
-      // -----------------------------
       const STORAGE_KEY = "uw_progress_v3_toolkit";
       const CERT_KEY = "uw_certificate_fill_v1";
 
@@ -550,7 +540,6 @@
 
       function useProgress(){
         const [progress, setProgress] = React.useState(loadProgress());
-
         const update = (fn) => {
           setProgress(prev => {
             const next = fn(safeClone(prev));
@@ -558,7 +547,6 @@
             return next;
           });
         };
-
         return [progress, update];
       }
 
@@ -576,9 +564,6 @@
         localStorage.setItem(CERT_KEY, JSON.stringify(next));
       }
 
-      // -----------------------------
-      // Routing
-      // -----------------------------
       function useHashRoute(){
         const [hash, setHash] = React.useState(window.location.hash || "#/");
         React.useEffect(() => {
@@ -589,9 +574,6 @@
         return [hash, (next) => { window.location.hash = next; }];
       }
 
-      // -----------------------------
-      // Lightbox
-      // -----------------------------
       function Lightbox({ open, title, src, onClose }){
         React.useEffect(() => {
           if(!open) return;
@@ -618,9 +600,6 @@
         );
       }
 
-      // -----------------------------
-      // Certificate Modal
-      // -----------------------------
       function CertificateModal({ open, onClose }){
         const canvasRef = React.useRef(null);
         const saved = React.useMemo(() => loadCertFill(), []);
@@ -704,9 +683,6 @@
         { id: "page-knowledge-seeker", name: "KNOWLEDGE SEEKER", icon: "💡", description: "", earnRule: "Read the Did You Know facts above to earn this badge.", earnedFrom: "Did You Know Page" },
       ];
 
-      // -----------------------------
-      // Data
-      // -----------------------------
       const LOCATIONS = [
         {
           id: "high-cliff",
@@ -828,18 +804,21 @@
 
       function getLoc(id){ return LOCATIONS.find(l => l.id === id); }
 
-      const DID_YOU_KNOW = {
-        id: "did-you-know",
-        title: "Did You Know?",
-        hotspot: { left: 5, top: 34, width: 34, height: 12 }
-      };
+      const DID_YOU_KNOW = { id: "did-you-know", title: "Did You Know?", hotspot: { left: 5, top: 34, width: 34, height: 12 } };
 
-      // -----------------------------
-      // Pages
-      // -----------------------------
+      // One shared "main menu" row (Toolkit / Etiquette / Did You Know?) used everywhere
+      function MainMenuLinks(){
+        return (
+          <>
+            <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+            <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+            <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
+          </>
+        );
+      }
+
       function Cover({ progress }){
         const [, nav] = useHashRoute();
-
         return (
           <div className="page">
             <header className="topbar">
@@ -847,18 +826,14 @@
                 <span className="brandDot" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
-
               <div className="navRow">
-                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
-                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
-                <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
+                <MainMenuLinks />
               </div>
             </header>
 
             <main className="content">
               <div className="coverWrap" aria-label="Unearthed Wisconsin cover map">
                 <img className="coverImg" src="./cover.png" alt="Unearthed Wisconsin map cover" />
-
                 {LOCATIONS.map(loc => (
                   <React.Fragment key={loc.id}>
                     <button
@@ -873,22 +848,13 @@
                       aria-label={`Open ${loc.title}`}
                       title={loc.title}
                     />
-
-                    {progress.toolkit?.[`${loc.id}-earth-explorer`] ? (
-                      <div
-                        className="stamp"
-                        style={{
-                          left: `calc(${loc.hotspot.left}% + 2px)`,
-                          top: `calc(${loc.hotspot.top}% - 10px)`,
-                        }}
-                      >
-                        <span className="stampDot"></span>
-                        Visited
+                    {loadProgress().toolkit?.[`${loc.id}-earth-explorer`] ? (
+                      <div className="stamp" style={{ left:`calc(${loc.hotspot.left}% + 2px)`, top:`calc(${loc.hotspot.top}% - 10px)` }}>
+                        <span className="stampDot"></span>Visited
                       </div>
                     ) : null}
                   </React.Fragment>
                 ))}
-
                 <button
                   className="hotspot"
                   style={{
@@ -901,14 +867,7 @@
                   aria-label="Open Did You Know page"
                   title="Did You Know?"
                 />
-
-                <div
-                  className="factStamp"
-                  style={{
-                    left: `calc(${DID_YOU_KNOW.hotspot.left}% + 2px)`,
-                    top: `calc(${DID_YOU_KNOW.hotspot.top}% - 10px)`,
-                  }}
-                >
+                <div className="factStamp" style={{ left:`calc(${DID_YOU_KNOW.hotspot.left}% + 2px)`, top:`calc(${DID_YOU_KNOW.hotspot.top}% - 10px)` }}>
                   💡 Did You Know?
                 </div>
               </div>
@@ -943,11 +902,9 @@
                 <span className="brandDot" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
-
               <div className="navRow">
                 <a className="navLink" href="#/">← Home</a>
-                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
-                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+                <MainMenuLinks />
               </div>
             </header>
 
@@ -957,29 +914,12 @@
                 <p className="subtitle">Fun facts about archaeology and effigy mounds!</p>
 
                 <ul className="dykList">
-                  <li className="dykItem">
-                    🦎 An effigy mound is a prehistoric Native American earthwork shaped like an animal, person, or object.
-                  </li>
-                  <li className="dykItem">
-                    🐾 <strong>Wisconsin is the Effigy Mound Capital of the World!</strong><br/>
-                    Nowhere else on Earth has as many animal-shaped mounds as Wisconsin once did!
-                  </li>
-                  <li className="dykItem">
-                    🕊️ <strong>Some mounds are so big you can only see their shape from the sky.</strong><br/>
-                    Early archaeologists used airplanes to discover bird and bear shapes!
-                  </li>
-                  <li className="dykItem">
-                    🐻 <strong>Bears and birds were the most common mound shapes.</strong><br/>
-                    They may symbolize earth animals (bears) and sky spirits (birds).
-                  </li>
-                  <li className="dykItem">
-                    📡 <strong>Archaeologists can “see underground” without digging.</strong><br/>
-                    Tools like Ground Penetrating Radar and LiDAR help map hidden features.
-                  </li>
-                  <li className="dykItem">
-                    🌽 <strong>Ancient Wisconsin people farmed corn, beans, and squash.</strong><br/>
-                    Hundreds of years before European settlers arrived.
-                  </li>
+                  <li className="dykItem">🦎 An effigy mound is a prehistoric Native American earthwork shaped like an animal, person, or object.</li>
+                  <li className="dykItem">🐾 <strong>Wisconsin is the Effigy Mound Capital of the World!</strong><br/>Nowhere else on Earth has as many animal-shaped mounds as Wisconsin once did!</li>
+                  <li className="dykItem">🕊️ <strong>Some mounds are so big you can only see their shape from the sky.</strong><br/>Early archaeologists used airplanes to discover bird and bear shapes!</li>
+                  <li className="dykItem">🐻 <strong>Bears and birds were the most common mound shapes.</strong><br/>They may symbolize earth animals (bears) and sky spirits (birds).</li>
+                  <li className="dykItem">📡 <strong>Archaeologists can “see underground” without digging.</strong><br/>Tools like Ground Penetrating Radar and LiDAR help map hidden features.</li>
+                  <li className="dykItem">🌽 <strong>Ancient Wisconsin people farmed corn, beans, and squash.</strong><br/>Hundreds of years before European settlers arrived.</li>
                 </ul>
 
                 <section className="panel" style={{marginTop:14}}>
@@ -993,14 +933,8 @@
                           <span className="tag">How to earn: <strong>{badge.earnRule}</strong></span>
                           {already ? <span className="tag">✅ Earned</span> : <span className="tag">Ready</span>}
                         </div>
-
-                        <div style={{marginTop:10, display:"flex", gap:10, flexWrap:"wrap"}}>
-                          <button
-                            className="btn btn2"
-                            type="button"
-                            onClick={() => collectGlobalBadge(update, badge)}
-                            disabled={already}
-                          >
+                        <div style={{marginTop:10}}>
+                          <button className="btn btn2" type="button" onClick={() => collectGlobalBadge(update, badge)} disabled={already}>
                             {already ? "Collected" : "Click To Collect"}
                           </button>
                         </div>
@@ -1009,7 +943,7 @@
                   </div>
                 </section>
 
-                <div style={{marginTop:16, display:"flex", gap:10, flexWrap:"wrap"}}>
+                <div style={{marginTop:16}}>
                   <a className="btn" href="#/">Back to Home</a>
                 </div>
               </div>
@@ -1031,10 +965,9 @@
                 <span className="brandDot" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
-
               <div className="navRow">
                 <a className="navLink" href="#/">← Home</a>
-                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+                <MainMenuLinks />
               </div>
             </header>
 
@@ -1068,14 +1001,8 @@
                           <span className="tag">How to earn: <strong>{badge.earnRule}</strong></span>
                           {already ? <span className="tag">✅ Earned</span> : <span className="tag">Ready</span>}
                         </div>
-
-                        <div style={{marginTop:10, display:"flex", gap:10, flexWrap:"wrap"}}>
-                          <button
-                            className="btn btn2"
-                            type="button"
-                            onClick={() => collectGlobalBadge(update, badge)}
-                            disabled={already}
-                          >
+                        <div style={{marginTop:10}}>
+                          <button className="btn btn2" type="button" onClick={() => collectGlobalBadge(update, badge)} disabled={already}>
                             {already ? "Collected" : "Click To Collect"}
                           </button>
                         </div>
@@ -1083,7 +1010,6 @@
                     </div>
                   </div>
                 </section>
-
               </div>
             </main>
 
@@ -1100,10 +1026,9 @@
                 <span className="brandDot" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
-
               <div className="navRow">
                 <a className="navLink" href="#/">← Home</a>
-                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+                <MainMenuLinks />
               </div>
             </header>
 
@@ -1143,32 +1068,18 @@
         LOCATIONS.forEach(loc => {
           (loc.toolkitItems || []).forEach(item => {
             if(progress.toolkit?.[item.id]){
-              earnedItems.push({
-                ...item,
-                earnedAt: progress.toolkit[item.id].earnedAt,
-                earnedFrom: progress.toolkit[item.id].earnedFrom,
-              });
+              earnedItems.push({ ...item, earnedAt: progress.toolkit[item.id].earnedAt, earnedFrom: progress.toolkit[item.id].earnedFrom });
             }
           });
         });
 
         GLOBAL_BADGES.forEach(b => {
           if(progress.toolkit?.[b.id]){
-            earnedItems.push({
-              id: b.id,
-              name: b.name,
-              icon: b.icon,
-              description: "",
-              earnedAt: progress.toolkit[b.id].earnedAt,
-              earnedFrom: progress.toolkit[b.id].earnedFrom,
-            });
+            earnedItems.push({ id: b.id, name: b.name, icon: b.icon, description: "", earnedAt: progress.toolkit[b.id].earnedAt, earnedFrom: progress.toolkit[b.id].earnedFrom });
           }
         });
 
-        const totalPossibleBadges =
-          LOCATIONS.reduce((sum, loc) => sum + ((loc.toolkitItems || []).length), 0)
-          + GLOBAL_BADGES.length;
-
+        const totalPossibleBadges = LOCATIONS.reduce((sum, loc) => sum + ((loc.toolkitItems || []).length), 0) + GLOBAL_BADGES.length;
         const hasAllBadges = earnedIds.length >= totalPossibleBadges;
 
         const resetAll = () => {
@@ -1189,8 +1100,7 @@
               </div>
               <div className="navRow">
                 <a className="navLink" href="#/">← Home</a>
-                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
-                <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
+                <MainMenuLinks />
                 <button className="btn btn2" type="button" onClick={resetAll}>♻️ Reset Progress</button>
               </div>
             </header>
@@ -1198,8 +1108,6 @@
             <main className="content">
               <div className="card">
                 <h1 className="title">🧰 Archaeology Tool Kit</h1>
-
-                {/* UPDATED subtitle text */}
                 <p className="subtitle">
                   To earn badges return to the map, click on each of the 5 locations, at the bottom of each page it tells you how to earn badges for that site.
                   You can also earn a badge for reading the Etiquette page and reading the Did You Know? page.
@@ -1217,19 +1125,13 @@
 
                 <div className="panel" style={{marginTop:14}}>
                   <h2>🎓 Unearthed Wisconsin Explorer Certificate</h2>
-                  <div className="smallMuted">
-                    Unlock this certificate by earning <strong>all</strong> possible badges in the app.
-                  </div>
+                  <div className="smallMuted">Unlock this certificate by earning <strong>all</strong> possible badges in the app.</div>
 
                   <div style={{marginTop:10, display:"flex", gap:10, flexWrap:"wrap"}}>
                     {hasAllBadges ? (
-                      <button className="btn btn2" type="button" onClick={() => setCertOpen(true)}>
-                        🏅 Claim Certificate
-                      </button>
+                      <button className="btn btn2" type="button" onClick={() => setCertOpen(true)}>🏅 Claim Certificate</button>
                     ) : (
-                      <button className="btn btn2" type="button" disabled>
-                        🔒 Claim Certificate
-                      </button>
+                      <button className="btn btn2" type="button" disabled>🔒 Claim Certificate</button>
                     )}
                   </div>
 
@@ -1240,23 +1142,20 @@
 
                 <div className="panel" style={{marginTop:14}}>
                   <h2>Your earned badges</h2>
-
                   {earnedItems.length ? (
                     <div className="kitGrid">
-                      {earnedItems
-                        .sort((a,b) => (b.earnedAt || 0) - (a.earnedAt || 0))
-                        .map(item => (
-                          <div key={item.id} className="kitItem">
-                            <div className="kitIcon">{item.icon}</div>
-                            <div>
-                              <div className="kitName">{item.name}</div>
-                              <div className="tagRow">
-                                <span className="tag">Earned at: <strong>{new Date(item.earnedAt).toLocaleString()}</strong></span>
-                                <span className="tag">From: <strong>{item.earnedFrom}</strong></span>
-                              </div>
+                      {earnedItems.sort((a,b) => (b.earnedAt || 0) - (a.earnedAt || 0)).map(item => (
+                        <div key={item.id} className="kitItem">
+                          <div className="kitIcon">{item.icon}</div>
+                          <div>
+                            <div className="kitName">{item.name}</div>
+                            <div className="tagRow">
+                              <span className="tag">Earned at: <strong>{new Date(item.earnedAt).toLocaleString()}</strong></span>
+                              <span className="tag">From: <strong>{item.earnedFrom}</strong></span>
                             </div>
                           </div>
-                        ))}
+                        </div>
+                      ))}
                     </div>
                   ) : (
                     <div className="smallMuted">No badges earned yet. Open a location or collect the page badges.</div>
@@ -1266,7 +1165,6 @@
             </main>
 
             <footer className="footer">Unearthed Wisconsin</footer>
-
             <CertificateModal open={certOpen} onClose={() => setCertOpen(false)} />
           </div>
         );
@@ -1299,7 +1197,10 @@
                   <span className="brandDot" />
                   <span className="brandText">Unearthed Wisconsin</span>
                 </div>
-                <a className="navLink" href="#/">← Home</a>
+                <div className="navRow">
+                  <a className="navLink" href="#/">← Home</a>
+                  <MainMenuLinks />
+                </div>
               </header>
               <main className="content">
                 <div className="card">
@@ -1352,7 +1253,6 @@
 
         const toolkitItems = loc.toolkitItems || [];
         const earnedToolkit = progress.toolkit || {};
-
         const isLabComplete = (totalCount > 0 && completedCount === totalCount);
 
         const eligibleFor = (item) => {
@@ -1397,11 +1297,10 @@
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
 
+              {/* UPDATED: Etiquette stays in the main menu across the whole app */}
               <div className="navRow">
                 <a className="navLink" href="#/">← Home</a>
-                <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
-                <a className="navLink" href="#/etiquette">📜 Etiquette</a>
-                <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
+                <MainMenuLinks />
               </div>
             </header>
 
@@ -1410,8 +1309,6 @@
                 <h1 className="title">{loc.title}</h1>
 
                 <div style={{marginTop: 10, marginBottom: 10, display:"flex", gap:10, flexWrap:"wrap"}}>
-                  <a className="btn btn2" href="#/etiquette">📜 Etiquette Page</a>
-
                   {loc.mapUrl ? (
                     <button className="btn" type="button" onClick={doDirections}>
                       🚗 Open Driving Directions
@@ -1422,14 +1319,9 @@
                     📣 Share #UnearthedWisconsin
                   </button>
 
-                  <a
-                    className="btn"
-                    href={UW_FACEBOOK_PAGE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Open the Unearthed Wisconsin Facebook Page"
-                  >
-                    📘 Unearthed Wisconsin Facebook Page
+                  {/* UPDATED: same button class (same font size), icon changed to 📱 */}
+                  <a className="btn" href={UW_FACEBOOK_PAGE_URL} target="_blank" rel="noopener noreferrer">
+                    📱 Unearthed Wisconsin Facebook Page
                   </a>
                 </div>
 
@@ -1477,7 +1369,6 @@
                       <span className="pill">Progress: {completedCount}/{totalCount}</span>
                     </div>
 
-                    {/* UPDATED Adventure Lab intro text */}
                     <div className="smallMuted" style={{marginBottom:10}}>
                       Now it's time to get out and explore! Click the "Open Driving Directions" once you arrive on site work on your checklist below.
                       Check items as you complete them and earn the Adventure Lab Master badge for completing the whole list
@@ -1492,11 +1383,7 @@
                               const done = !!taskStateForLoc[t.id];
                               return (
                                 <label key={t.id} className={"taskRow" + (done ? " taskDone" : "")}>
-                                  <input
-                                    type="checkbox"
-                                    checked={done}
-                                    onChange={() => toggleTask(t.id)}
-                                  />
+                                  <input type="checkbox" checked={done} onChange={() => toggleTask(t.id)} />
                                   <div className="taskText">{t.text}</div>
                                 </label>
                               );
@@ -1528,19 +1415,13 @@
                             <div className="kitIcon">{item.icon}</div>
                             <div style={{flex:1}}>
                               <div className="kitName">{item.name}</div>
-
                               <div className="tagRow">
                                 <span className="tag">How to earn: <strong>{item.earnRule}</strong></span>
                                 {already ? <span className="tag">✅ Earned</span> : (eligible ? <span className="tag">Ready</span> : <span className="tag warnTag">Not yet</span>)}
                               </div>
 
-                              <div style={{marginTop:10, display:"flex", gap:10, flexWrap:"wrap"}}>
-                                <button
-                                  className="btn btn2"
-                                  type="button"
-                                  onClick={() => earnToolkitItem(item.id)}
-                                  disabled={already || !eligible}
-                                >
+                              <div style={{marginTop:10}}>
+                                <button className="btn btn2" type="button" onClick={() => earnToolkitItem(item.id)} disabled={already || !eligible}>
                                   {already ? "Collected" : "Click To Collect"}
                                 </button>
                               </div>
@@ -1560,13 +1441,7 @@
             </main>
 
             <footer className="footer">Unearthed Wisconsin</footer>
-
-            <Lightbox
-              open={lightboxOpen}
-              title={lightboxTitle}
-              src={lightboxSrc}
-              onClose={() => setLightboxOpen(false)}
-            />
+            <Lightbox open={lightboxOpen} title={lightboxTitle} src={lightboxSrc} onClose={() => setLightboxOpen(false)} />
           </div>
         );
       }
