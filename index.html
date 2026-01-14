@@ -2,8 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Unearthed Wisconsin</title>
+
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Explore Wisconsin's ancient effigy mounds and archaeological sites. An educational adventure app for families and explorers." />
+    <meta name="theme-color" content="#2a7f58" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Unearthed Wisconsin" />
+    
+    <!-- iOS PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Unearthed WI" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png" />
 
     <!-- React (CDN) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -408,6 +427,137 @@
         overflow:hidden;
       }
       canvas{display:block;width:100%;height:auto}
+
+      /* Install Banner Styles */
+      .install-banner{
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        background: linear-gradient(180deg, rgba(42,127,88,0.98), rgba(30,100,70,0.98));
+        color:#fff;
+        padding:16px 18px;
+        z-index:10001;
+        box-shadow:0 -4px 20px rgba(0,0,0,.25);
+        display:none;
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      .install-banner.show{display:block}
+      .install-banner-content{
+        max-width:600px;
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        gap:14px;
+      }
+      .install-banner-icon{
+        width:48px;
+        height:48px;
+        background:rgba(255,255,255,.2);
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:24px;
+        flex-shrink:0;
+      }
+      .install-banner-text{flex:1}
+      .install-banner-title{font-weight:800;font-size:16px;margin-bottom:4px}
+      .install-banner-desc{font-size:13px;opacity:.9;line-height:1.4}
+      .install-banner-buttons{display:flex;gap:10px;flex-shrink:0}
+      .install-btn{
+        padding:10px 16px;
+        border-radius:10px;
+        border:none;
+        font-weight:700;
+        font-size:14px;
+        cursor:pointer;
+        transition:transform 0.1s;
+      }
+      .install-btn:active{transform:scale(0.96)}
+      .install-btn-primary{
+        background:#fff;
+        color:#2a7f58;
+      }
+      .install-btn-secondary{
+        background:rgba(255,255,255,.2);
+        color:#fff;
+      }
+      @media(max-width:520px){
+        .install-banner-content{flex-wrap:wrap}
+        .install-banner-buttons{width:100%;justify-content:stretch}
+        .install-btn{flex:1;text-align:center}
+      }
+
+      /* iOS Install Instructions Modal */
+      .ios-modal-overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.7);
+        z-index:10002;
+        display:none;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+      }
+      .ios-modal-overlay.show{display:flex}
+      .ios-modal{
+        background:#fff;
+        border-radius:20px;
+        max-width:340px;
+        width:100%;
+        overflow:hidden;
+        box-shadow:0 20px 60px rgba(0,0,0,.3);
+      }
+      .ios-modal-header{
+        background:linear-gradient(180deg,#2a7f58,#1e6446);
+        color:#fff;
+        padding:20px;
+        text-align:center;
+      }
+      .ios-modal-header h3{margin:0;font-size:20px}
+      .ios-modal-body{padding:20px}
+      .ios-step{
+        display:flex;
+        align-items:flex-start;
+        gap:12px;
+        margin-bottom:16px;
+      }
+      .ios-step:last-child{margin-bottom:0}
+      .ios-step-num{
+        width:28px;
+        height:28px;
+        background:#2a7f58;
+        color:#fff;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:700;
+        font-size:14px;
+        flex-shrink:0;
+      }
+      .ios-step-text{font-size:15px;line-height:1.5;color:#333}
+      .ios-step-icon{font-size:20px}
+      .ios-modal-footer{
+        padding:16px 20px;
+        border-top:1px solid #eee;
+        text-align:center;
+      }
+      .ios-modal-close{
+        background:#2a7f58;
+        color:#fff;
+        border:none;
+        padding:12px 32px;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:700;
+        cursor:pointer;
+      }
     </style>
   </head>
 
@@ -1465,6 +1615,194 @@
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
       root.render(<App />);
+    </script>
+
+    <!-- Install Banner for Android/Desktop -->
+    <div id="install-banner" class="install-banner">
+      <div class="install-banner-content">
+        <div class="install-banner-icon">🦎</div>
+        <div class="install-banner-text">
+          <div class="install-banner-title">Install Unearthed Wisconsin</div>
+          <div class="install-banner-desc">Add to your home screen for offline access and a native app experience!</div>
+        </div>
+        <div class="install-banner-buttons">
+          <button id="install-btn" class="install-btn install-btn-primary">Install</button>
+          <button id="install-dismiss" class="install-btn install-btn-secondary">Not Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- iOS Install Instructions Modal -->
+    <div id="ios-modal" class="ios-modal-overlay">
+      <div class="ios-modal">
+        <div class="ios-modal-header">
+          <h3>📱 Install on iPhone/iPad</h3>
+        </div>
+        <div class="ios-modal-body">
+          <div class="ios-step">
+            <div class="ios-step-num">1</div>
+            <div class="ios-step-text">Tap the <span class="ios-step-icon">⬆️</span> <strong>Share</strong> button at the bottom of Safari</div>
+          </div>
+          <div class="ios-step">
+            <div class="ios-step-num">2</div>
+            <div class="ios-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong> <span class="ios-step-icon">➕</span></div>
+          </div>
+          <div class="ios-step">
+            <div class="ios-step-num">3</div>
+            <div class="ios-step-text">Tap <strong>"Add"</strong> in the top right corner</div>
+          </div>
+        </div>
+        <div class="ios-modal-footer">
+          <button id="ios-modal-close" class="ios-modal-close">Got it!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Worker & Install Prompt Script -->
+    <script>
+      // Detect platform
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isAndroid = /Android/.test(navigator.userAgent);
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      
+      // Install prompt deferral
+      let deferredPrompt = null;
+      const INSTALL_DISMISSED_KEY = 'uw_install_dismissed';
+      const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+      // Check if user dismissed recently
+      function wasRecentlyDismissed() {
+        try {
+          const dismissed = localStorage.getItem(INSTALL_DISMISSED_KEY);
+          if (!dismissed) return false;
+          const dismissedAt = parseInt(dismissed, 10);
+          return Date.now() - dismissedAt < DISMISS_DURATION;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // Show install banner
+      function showInstallBanner() {
+        if (isStandalone || wasRecentlyDismissed()) return;
+        
+        const banner = document.getElementById('install-banner');
+        if (banner) {
+          banner.classList.add('show');
+        }
+      }
+
+      // Hide install banner
+      function hideInstallBanner() {
+        const banner = document.getElementById('install-banner');
+        if (banner) {
+          banner.classList.remove('show');
+        }
+      }
+
+      // Show iOS instructions modal
+      function showIOSModal() {
+        const modal = document.getElementById('ios-modal');
+        if (modal) {
+          modal.classList.add('show');
+        }
+      }
+
+      // Hide iOS modal
+      function hideIOSModal() {
+        const modal = document.getElementById('ios-modal');
+        if (modal) {
+          modal.classList.remove('show');
+        }
+      }
+
+      // Android/Desktop: Listen for beforeinstallprompt
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show banner after a short delay
+        setTimeout(() => {
+          showInstallBanner();
+        }, 2000);
+      });
+
+      // iOS: Show banner with instructions
+      if (isIOS && !isStandalone) {
+        setTimeout(() => {
+          showInstallBanner();
+        }, 3000);
+      }
+
+      // Install button click
+      document.getElementById('install-btn')?.addEventListener('click', async () => {
+        if (isIOS) {
+          hideInstallBanner();
+          showIOSModal();
+          return;
+        }
+
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log('[PWA] Install outcome:', outcome);
+          deferredPrompt = null;
+          hideInstallBanner();
+        }
+      });
+
+      // Dismiss button click
+      document.getElementById('install-dismiss')?.addEventListener('click', () => {
+        hideInstallBanner();
+        try {
+          localStorage.setItem(INSTALL_DISMISSED_KEY, Date.now().toString());
+        } catch (e) {}
+      });
+
+      // iOS modal close
+      document.getElementById('ios-modal-close')?.addEventListener('click', () => {
+        hideIOSModal();
+        try {
+          localStorage.setItem(INSTALL_DISMISSED_KEY, Date.now().toString());
+        } catch (e) {}
+      });
+
+      // Close iOS modal on overlay click
+      document.getElementById('ios-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'ios-modal') {
+          hideIOSModal();
+        }
+      });
+
+      // Detect successful install
+      window.addEventListener('appinstalled', () => {
+        console.log('[PWA] App installed successfully!');
+        hideInstallBanner();
+        deferredPrompt = null;
+      });
+
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('[SW] Service Worker registered:', registration.scope);
+              
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('[SW] New version available!');
+                  }
+                });
+              });
+            })
+            .catch((error) => {
+              console.error('[SW] Registration failed:', error);
+            });
+        });
+      }
     </script>
   </body>
 </html>

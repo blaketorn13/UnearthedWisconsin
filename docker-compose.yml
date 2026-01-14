@@ -1,0 +1,15 @@
+services:
+  unearthed-wisconsin:
+    build: .
+    container_name: unearthed-wisconsin
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    # Health check to ensure nginx is serving
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/index.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
