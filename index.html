@@ -115,41 +115,1694 @@
         font-size:12px;
         backdrop-filter: blur(6px);
       }
+      .stampDot{
+        width:8px;height:8px;border-radius:999px;
+        background: var(--accent);
+        box-shadow:0 0 0 4px rgba(42,127,88,.16);
+      }
 
-      /* Existing hintBody text, replace 'Koshkononh' with 'Koshkonong' below this line */
-      .hintBody {
-        ... /* Other existing styles */ */
+      .factStamp{
+        position:absolute;
+        pointer-events:none;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid rgba(0,0,0,.16);
+        background: rgba(255,255,255,.78);
+        color: rgba(0,0,0,.88);
+        font-size:12px;
+        backdrop-filter: blur(6px);
       }
-      /* Example of replacement text: */
-      .hintBody:before {
-        content: 'Koshkonong';
+
+      .hint{
+        border:1px solid var(--line);
+        border-radius:18px;padding:14px 16px;
+        background: rgba(255,255,255,.45);
       }
-      /* End of existing hintBody text replacement */
+      .hintTitle{font-weight:700;margin-bottom:6px}
+      .hintBody{color:var(--muted);line-height:1.45}
+      .title{margin:0 0 6px;font-size:28px;letter-spacing:.2px}
+      .subtitle{margin:0 0 14px;color:var(--muted);line-height:1.5}
+
+      .panel{
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.45);
+        border-radius:16px;padding:14px;
+      }
+      .panel h2{margin:0 0 10px;font-size:16px;color:rgba(0,0,0,.88)}
+      .btn{
+        display:inline-flex;align-items:center;justify-content:center;
+        padding:10px 12px;border-radius:12px;
+        border:1px solid rgba(0,0,0,.18);
+        background: rgba(255,255,255,.62);
+        color:var(--text);text-decoration:none;cursor:pointer;
+        font-size:14px; /* ensures consistent button font size */
+        line-height:1.2;
+      }
+      .btn:hover{border-color: rgba(42,127,88,.55); box-shadow:0 0 0 5px rgba(42,127,88,.14)}
+      .btn:disabled{opacity:.5; cursor:not-allowed;}
+      .btn2{border-color: rgba(28,111,214,.35);}
+      .btn2:hover{border-color: rgba(28,111,214,.75); box-shadow: 0 0 0 5px rgba(28,111,214,.14);}
+      .footer{color:rgba(0,0,0,.60);text-align:center;padding:18px 10px 24px}
+      .pill{
+        display:inline-flex;align-items:center;gap:8px;
+        padding:8px 10px;border:1px solid rgba(0,0,0,.16);
+        border-radius:999px;background: rgba(255,255,255,.55);
+        color:var(--muted);font-size:13px;
+      }
+
+      .checklist{display:grid;gap:10px}
+      .taskRow{
+        display:flex;gap:10px;align-items:flex-start;
+        padding:10px;
+        border:1px solid rgba(0,0,0,.12);
+        border-radius:14px;
+        background: rgba(255,255,255,.42);
+      }
+      .taskRow input{
+        margin-top:3px;
+        width:18px;
+        height:18px;
+        flex: 0 0 18px;
+      }
+      .taskText{color: rgba(0,0,0,.80); line-height:1.45}
+      .taskDone .taskText{color: rgba(0,0,0,.62); text-decoration: line-through;}
+      .groupTitle{
+        margin-top:8px;
+        font-weight:800;
+        color: rgba(0,0,0,.88);
+        letter-spacing:.2px;
+      }
+      .smallMuted{color: var(--muted); font-size:13px; line-height:1.45}
+
+      .kitGrid{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:10px;
+      }
+      @media (min-width: 720px){
+        .kitGrid{grid-template-columns: 1fr 1fr;}
+      }
+      .kitItem{
+        border:1px solid rgba(0,0,0,.14);
+        border-radius:16px;
+        background: rgba(255,255,255,.45);
+        padding:12px;
+        display:flex;
+        gap:12px;
+        align-items:flex-start;
+      }
+      .kitIcon{
+        width:38px;height:38px;border-radius:12px;
+        display:flex;align-items:center;justify-content:center;
+        background: rgba(42,127,88,.10);
+        border:1px solid rgba(42,127,88,.22);
+        font-size:24px;
+        flex: 0 0 auto;
+      }
+      .kitName{font-weight:900; letter-spacing:.2px}
+      .tagRow{margin-top:8px; display:flex; gap:8px; flex-wrap:wrap}
+      .tag{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid rgba(0,0,0,.14);
+        background: rgba(255,255,255,.58);
+        color: rgba(0,0,0,.78);
+        font-size:12px;
+      }
+      .warnTag{
+        border-color: rgba(168,107,0,.35);
+        color: rgba(128,76,0,.95);
+        background: rgba(255,211,107,.22);
+      }
+
+      .bigTitle{
+        font-size:26px;
+        font-weight:900;
+        margin:0 0 12px;
+        letter-spacing:.2px;
+      }
+      .etList{
+        margin:0;
+        padding-left:18px;
+        line-height:1.75;
+        color: rgba(0,0,0,.82);
+      }
+      .etImage{
+        width:100%;
+        height:auto;
+        display:block;
+        border-radius:14px;
+        border:1px solid rgba(0,0,0,.14);
+        margin-top:14px;
+      }
+
+      .dykList{
+        margin:0;
+        padding-left:0;
+        list-style:none;
+        display:grid;
+        gap:12px;
+      }
+      .dykItem{
+        border:1px solid rgba(0,0,0,.14);
+        border-radius:16px;
+        background: rgba(255,255,255,.45);
+        padding:12px 14px;
+        line-height:1.55;
+        color: rgba(0,0,0,.84);
+      }
+      .dykItem strong{color: rgba(0,0,0,.95)}
+
+      .imgThumb{
+        width:100%;
+        border-radius:12px;
+        border:1px solid rgba(0,0,0,.14);
+        cursor:pointer;
+      }
+      .imgThumb:hover{
+        box-shadow: 0 0 0 6px rgba(42,127,88,.14);
+        border-color: rgba(42,127,88,.55);
+      }
+      .lightboxOverlay{
+        position:fixed;
+        inset:0;
+        background: rgba(0,0,0,.72);
+        z-index: 9999;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding: 18px;
+      }
+      .lightboxCard{
+        width: min(980px, 100%);
+        background: rgba(255,255,255,.92);
+        border: 1px solid rgba(0,0,0,.18);
+        border-radius: 18px;
+        box-shadow: 0 18px 60px rgba(0,0,0,.35);
+        overflow:hidden;
+      }
+      .lightboxTop{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(0,0,0,.14);
+        background: rgba(255,255,255,.80);
+      }
+      .lightboxTitle{
+        font-weight:800;
+        color: rgba(0,0,0,.86);
+        font-size: 14px;
+        line-height:1.3;
+      }
+      .lightboxClose{
+        border: 1px solid rgba(0,0,0,.18);
+        background: rgba(255,255,255,.70);
+        color: rgba(0,0,0,.88);
+        border-radius: 12px;
+        padding: 8px 10px;
+        cursor:pointer;
+      }
+      .lightboxClose:hover{
+        border-color: rgba(28,111,214,.75);
+        box-shadow: 0 0 0 5px rgba(28,111,214,.14);
+      }
+      .lightboxBody{
+        padding: 12px;
+      }
+      .lightboxImg{
+        width:100%;
+        height:auto;
+        display:block;
+        border-radius: 14px;
+        border: 1px solid rgba(0,0,0,.14);
+        background: rgba(255,255,255,.55);
+      }
+      .lightboxHint{
+        margin-top:10px;
+        color: rgba(0,0,0,.70);
+        font-size: 13px;
+        line-height:1.45;
+      }
+
+      .certOverlay{
+        position:fixed;
+        inset:0;
+        background: rgba(0,0,0,.72);
+        z-index: 10000;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:18px;
+      }
+      .certCard{
+        width: min(980px, 100%);
+        background: rgba(255,255,255,.92);
+        border: 1px solid rgba(0,0,0,.18);
+        border-radius: 18px;
+        box-shadow: 0 18px 60px rgba(0,0,0,.35);
+        overflow:hidden;
+      }
+      .certTop{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(0,0,0,.14);
+        background: rgba(255,255,255,.80);
+      }
+      .certTitle{
+        font-weight:900;
+        color: rgba(0,0,0,.86);
+        font-size: 14px;
+        line-height:1.3;
+      }
+      .certClose{
+        border: 1px solid rgba(0,0,0,.18);
+        background: rgba(255,255,255,.70);
+        color: rgba(0,0,0,.88);
+        border-radius: 12px;
+        padding: 8px 10px;
+        cursor:pointer;
+      }
+      .certClose:hover{
+        border-color: rgba(28,111,214,.75);
+        box-shadow: 0 0 0 5px rgba(28,111,214,.14);
+      }
+      .certBody{
+        padding: 12px;
+        display:grid;
+        gap:12px;
+      }
+      .certInputs{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:10px;
+      }
+      @media (min-width: 720px){
+        .certInputs{grid-template-columns: 1.3fr .7fr auto;}
+      }
+      .certInput{
+        width:100%;
+        padding:10px 12px;
+        border-radius:12px;
+        border:1px solid rgba(0,0,0,.18);
+        background: rgba(255,255,255,.85);
+        font-size:14px;
+        outline:none;
+      }
+      .certInput:focus{
+        border-color: rgba(28,111,214,.75);
+        box-shadow: 0 0 0 5px rgba(28,111,214,.14);
+      }
+      .certCanvasWrap{
+        border:1px solid rgba(0,0,0,.14);
+        border-radius:14px;
+        background: rgba(255,255,255,.70);
+        overflow:hidden;
+      }
+      canvas{display:block;width:100%;height:auto}
+
+      /* Install Banner Styles */
+      .install-banner{
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        background: linear-gradient(180deg, rgba(42,127,88,0.98), rgba(30,100,70,0.98));
+        color:#fff;
+        padding:16px 18px;
+        z-index:10001;
+        box-shadow:0 -4px 20px rgba(0,0,0,.25);
+        display:none;
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      .install-banner.show{display:block}
+      .install-banner-content{
+        max-width:600px;
+        margin:0 auto;
+        display:flex;
+        align-items:center;
+        gap:14px;
+      }
+      .install-banner-icon{
+        width:48px;
+        height:48px;
+        background:rgba(255,255,255,.2);
+        border-radius:12px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:24px;
+        flex-shrink:0;
+      }
+      .install-banner-text{flex:1}
+      .install-banner-title{font-weight:800;font-size:16px;margin-bottom:4px}
+      .install-banner-desc{font-size:13px;opacity:.9;line-height:1.4}
+      .install-banner-buttons{display:flex;gap:10px;flex-shrink:0}
+      .install-btn{
+        padding:10px 16px;
+        border-radius:10px;
+        border:none;
+        font-weight:700;
+        font-size:14px;
+        cursor:pointer;
+        transition:transform 0.1s;
+      }
+      .install-btn:active{transform:scale(0.96)}
+      .install-btn-primary{
+        background:#fff;
+        color:#2a7f58;
+      }
+      .install-btn-secondary{
+        background:rgba(255,255,255,.2);
+        color:#fff;
+      }
+      @media(max-width:520px){
+        .install-banner-content{flex-wrap:wrap}
+        .install-banner-buttons{width:100%;justify-content:stretch}
+        .install-btn{flex:1;text-align:center}
+      }
+
+      /* iOS Install Instructions Modal */
+      .ios-modal-overlay{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.7);
+        z-index:10002;
+        display:none;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+      }
+      .ios-modal-overlay.show{display:flex}
+      .ios-modal{
+        background:#fff;
+        border-radius:20px;
+        max-width:340px;
+        width:100%;
+        overflow:hidden;
+        box-shadow:0 20px 60px rgba(0,0,0,.3);
+      }
+      .ios-modal-header{
+        background:linear-gradient(180deg,#2a7f58,#1e6446);
+        color:#fff;
+        padding:20px;
+        text-align:center;
+      }
+      .ios-modal-header h3{margin:0;font-size:20px}
+      .ios-modal-body{padding:20px}
+      .ios-step{
+        display:flex;
+        align-items:flex-start;
+        gap:12px;
+        margin-bottom:16px;
+      }
+      .ios-step:last-child{margin-bottom:0}
+      .ios-step-num{
+        width:28px;
+        height:28px;
+        background:#2a7f58;
+        color:#fff;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:700;
+        font-size:14px;
+        flex-shrink:0;
+      }
+      .ios-step-text{font-size:15px;line-height:1.5;color:#333}
+      .ios-step-icon{font-size:20px}
+      .ios-modal-footer{
+        padding:16px 20px;
+        border-top:1px solid #eee;
+        text-align:center;
+      }
+      .ios-modal-close{
+        background:#2a7f58;
+        color:#fff;
+        border:none;
+        padding:12px 32px;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:700;
+        cursor:pointer;
+      }
     </style>
   </head>
+
   <body>
-    <div class="page">
-      <div class="topbar">
-        <div class="brand">
-          <div class="brandDot"></div>
-          <div class="brandText">Unearthed Wisconsin</div>
-        </div>
-        <div class="navRow">
-          <a class="navLink" href="#">Home</a>
-          <a class="navLink" href="#">About</a>
-        </div>
-      </div>
-      <div class="content">
-        <div class="card">
-          <div class="coverWrap">
-            <img class="coverImg" src="/images/cover.jpg" alt="Unearthed Wisconsin cover" />
-            <div class="hotspot" style="top: 20%; left: 30%;" tabindex="0" aria-label="Koshkonong"></div>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function safeClone(obj){
+        try{ if(typeof structuredClone === "function") return structuredClone(obj); }catch(e){}
+        return JSON.parse(JSON.stringify(obj));
+      }
+
+      function openMaps(url){
+        if(!url) return;
+        const win = window.open(url, "_blank");
+        if(!win) window.location.href = url;
+      }
+
+      async function tryShare(text){
+        try{
+          if(navigator.share){
+            await navigator.share({ text });
+            return true;
+          }
+        }catch(e){}
+        try{
+          await navigator.clipboard.writeText(text);
+          alert("Copied! Paste this into your post:\n\n" + text);
+          return true;
+        }catch(e){
+          alert("Please post with:\n\n" + text);
+          return false;
+        }
+      }
+
+      // Certificate
+      const CERT_BG_SRC = "./Certificate.png";
+      const NAME_BOX = { x: 0.18, y: 0.36, w: 0.64, h: 0.08 };
+      const DATE_BOX = { x: 0.0,  y: 0.73, w: 0.64, h: 0.06 };
+
+      function fitFontSize(ctx, text, maxWidth, startPx, minPx){
+        let size = startPx;
+        ctx.font = `700 ${size}px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial`;
+        while(size > minPx && ctx.measureText(text).width > maxWidth){
+          size -= 2;
+          ctx.font = `700 ${size}px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial`;
+        }
+        return size;
+      }
+
+      async function renderCertificateToCanvas(canvas, name, dateStr){
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = CERT_BG_SRC;
+
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+
+        const w = img.naturalWidth || 1200;
+        const h = img.naturalHeight || 900;
+
+        canvas.width = w;
+        canvas.height = h;
+
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0,0,w,h);
+        ctx.drawImage(img, 0, 0, w, h);
+
+        ctx.fillStyle = "rgba(0,0,0,.92)";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        const nameText = (name || "").trim();
+        if(nameText){
+          const box = NAME_BOX;
+          const cx = (box.x + box.w/2) * w;
+          const cy = (box.y + box.h/2) * h;
+          const maxWidth = box.w * w;
+
+          const px = fitFontSize(ctx, nameText, maxWidth, Math.round(h * 0.06), 18);
+          ctx.font = `800 ${px}px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial`;
+          ctx.fillText(nameText, cx, cy);
+        }
+
+        const rawDate = (dateStr || "").trim();
+        let dateText = rawDate;
+        if(rawDate && /^\d{4}-\d{2}-\d{2}$/.test(rawDate)){
+          const [yyyy, mm, dd] = rawDate.split("-");
+          dateText = `${mm}-${dd}-${yyyy}`;
+        }
+
+        if(dateText){
+          const box = DATE_BOX;
+          const cx = (box.x + box.w/2) * w;
+          const cy = (box.y + box.h/2) * h;
+          const maxWidth = box.w * w;
+
+          const px = fitFontSize(ctx, dateText, maxWidth, Math.round(h * 0.045), 14);
+          ctx.font = `700 ${px}px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial`;
+          ctx.fillText(dateText, cx, cy);
+        }
+
+        return canvas;
+      }
+
+      const STORAGE_KEY = "uw_progress_v3_toolkit";
+      const CERT_KEY = "uw_certificate_fill_v1";
+
+      function loadProgress(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if(!raw) return { visited: {}, tasks: {}, toolkit: {}, flags: { shared:{}, directions:{} } };
+          const parsed = JSON.parse(raw);
+          return {
+            visited: parsed.visited || {},
+            tasks: parsed.tasks || {},
+            toolkit: parsed.toolkit || {},
+            flags: parsed.flags || { shared:{}, directions:{} },
+          };
+        }catch(e){
+          return { visited: {}, tasks: {}, toolkit: {}, flags: { shared:{}, directions:{} } };
+        }
+      }
+
+      function saveProgress(next){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      }
+
+      function useProgress(){
+        const [progress, setProgress] = React.useState(loadProgress());
+        const update = (fn) => {
+          setProgress(prev => {
+            const next = fn(safeClone(prev));
+            saveProgress(next);
+            return next;
+          });
+        };
+        return [progress, update];
+      }
+
+      function loadCertFill(){
+        try{
+          const raw = localStorage.getItem(CERT_KEY);
+          if(!raw) return { name:"", date:"" };
+          const parsed = JSON.parse(raw);
+          return { name: parsed.name || "", date: parsed.date || "" };
+        }catch(e){
+          return { name:"", date:"" };
+        }
+      }
+      function saveCertFill(next){
+        localStorage.setItem(CERT_KEY, JSON.stringify(next));
+      }
+
+      function useHashRoute(){
+        const [hash, setHash] = React.useState(window.location.hash || "#/");
+        React.useEffect(() => {
+          const onChange = () => setHash(window.location.hash || "#/");
+          window.addEventListener("hashchange", onChange);
+          return () => window.removeEventListener("hashchange", onChange);
+        }, []);
+        return [hash, (next) => { window.location.hash = next; }];
+      }
+
+      function Lightbox({ open, title, src, onClose }){
+        React.useEffect(() => {
+          if(!open) return;
+          const onKey = (e) => { if(e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", onKey);
+          return () => window.removeEventListener("keydown", onKey);
+        }, [open, onClose]);
+
+        if(!open) return null;
+
+        return (
+          <div className="lightboxOverlay" role="dialog" aria-modal="true" aria-label="Image viewer" onClick={onClose}>
+            <div className="lightboxCard" onClick={(e)=>e.stopPropagation()}>
+              <div className="lightboxTop">
+                <div className="lightboxTitle">{title || "Photo"}</div>
+                <button className="lightboxClose" type="button" onClick={onClose}>✕ Close</button>
+              </div>
+              <div className="lightboxBody">
+                <img className="lightboxImg" src={src} alt={title || "Enlarged photo"} />
+                <div className="lightboxHint">Tip: Press <strong>Esc</strong> to close.</div>
+              </div>
+            </div>
           </div>
-          <div class="hintBody">
-            <p>Discover the mysteries of Koshkonong and its ancient effigy mounds.</p>
+        );
+      }
+
+      function CertificateModal({ open, onClose }){
+        const canvasRef = React.useRef(null);
+        const saved = React.useMemo(() => loadCertFill(), []);
+        const [name, setName] = React.useState(saved.name || "");
+        const [date, setDate] = React.useState(saved.date || "");
+
+        React.useEffect(() => {
+          if(!open) return;
+          const onKey = (e) => { if(e.key === "Escape") onClose(); };
+          window.addEventListener("keydown", onKey);
+          return () => window.removeEventListener("keydown", onKey);
+        }, [open, onClose]);
+
+        React.useEffect(() => {
+          if(!open) return;
+          const canvas = canvasRef.current;
+          if(!canvas) return;
+          renderCertificateToCanvas(canvas, name, date).catch(() => {});
+        }, [open, name, date]);
+
+        if(!open) return null;
+
+        const onSave = () => {
+          saveCertFill({ name, date });
+          alert("Saved! Your certificate name/date will be remembered on this device.");
+        };
+
+        return (
+          <div className="certOverlay" role="dialog" aria-modal="true" aria-label="Explorer Certificate" onClick={onClose}>
+            <div className="certCard" onClick={(e)=>e.stopPropagation()}>
+              <div className="certTop">
+                <div className="certTitle">🎓 Explorer Certificate</div>
+                <button className="certClose" type="button" onClick={onClose}>✕ Close</button>
+              </div>
+
+              <div className="certBody">
+                <div className="certInputs">
+                  <input className="certInput" type="text" placeholder="Your name" value={name} onChange={(e)=>setName(e.target.value)} />
+                  <input className="certInput" type="date" value={date} onChange={(e)=>setDate(e.target.value)} />
+                  <button className="btn btn2" type="button" onClick={onSave}>💾 Save</button>
+                </div>
+
+                <div className="certCanvasWrap">
+                  <canvas ref={canvasRef}></canvas>
+                </div>
+              </div>
+            </div>
           </div>
+        );
+      }
+
+      function collectGlobalBadge(update, badge){
+        update(p => {
+          p.toolkit = p.toolkit || {};
+          if(!p.toolkit[badge.id]){
+            p.toolkit[badge.id] = { earnedAt: Date.now(), earnedFrom: badge.earnedFrom };
+          }
+          return p;
+        });
+      }
+
+      const COMMON_ADVENTURE_TASKS = (prefix) => ([
+        { id: `${prefix}-spot`, group: "Adventure Lab", text: "Can you spot any of the mounds described in the facts above?" },
+        { id: `${prefix}-wildlife`, group: "Adventure Lab", text: "Look for wildlife or plants around the mounds. (Look, don’t touch.) Draw a picture in your field notebook." },
+        { id: `${prefix}-notes`, group: "Field Notebook", text: "Sketch or take notes of your favorite area in your field notebook." },
+      ]);
+
+      const UW_FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61585954632899";
+
+      function makeToolkitBadges(locId, icons){
+        return [
+          { id: `${locId}-fact-finder`, name: "FACT FINDER", icon: icons.fact, description: "", earnRule: "Read all the facts on this page to collect this badge.", type: "fact" },
+          { id: `${locId}-mound-messenger`, name: "MOUND MESSENGER", icon: icons.share, description: "", earnRule: "Click the #UnearthedWisconsin button at the top of this page to SHARE to your social media accounts and our Unearthed Wisconsin Facebook page to collect this badge.", type: "share" },
+          { id: `${locId}-earth-explorer`, name: "EARTH EXPLORER", icon: icons.visit, description: "", earnRule: "Open the Driving Directions at the top of this page and visit the location before collecting this badge.", type: "visit" },
+          { id: `${locId}-adventure-lab-master`, name: "ADVENTURE LAB MASTER", icon: "🧨", description: "", earnRule: "Complete the whole checklist on site to collect this badge.", type: "lab" },
+        ];
+      }
+
+      const GLOBAL_BADGES = [
+        { id: "page-etiquette-star", name: "ETIQUETTE STAR", icon: "🌟", description: "", earnRule: "Read the Etiquette list on this page to earn this badge.", earnedFrom: "Etiquette Page" },
+        { id: "page-knowledge-seeker", name: "KNOWLEDGE SEEKER", icon: "💡", description: "", earnRule: "Read the Did You Know facts above to earn this badge.", earnedFrom: "Did You Know Page" },
+      ];
+
+      const LOCATIONS = [
+        {
+          id: "high-cliff",
+          title: "High Cliff",
+          short: "Dramatic views above Lake Winnebago and classic Wisconsin outdoor vibes.",
+          hotspot: { left: 64, top: 6, width: 32, height: 14 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=High%20Cliff%20State%20Park%2C%20Sherwood%2C%20WI&travelmode=driving",
+          facts: [
+            "Location: Neenah, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "High Cliff has several effigy mounds, including bear, panther, and bird shapes.",
+            "Mounds are located on high bluffs overlooking Lake Winnebago.",
+            "The site offers clues about ceremonial practices of Late Woodland people.",
+            "Archaeologists have recorded the shapes and sizes of over 40 mounds in the park.",
+          ],
+          gallery: ["./Highcliff1.png", "./Highcliff2.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("hc"),
+          toolkitItems: makeToolkitBadges("high-cliff", { visit:"🧭", share:"🔦", fact:"🔍" }),
+        },
+        {
+          id: "lizard-mound",
+          title: "Lizard Mound",
+          short: "One of the most well-preserved Native American effigy mound sites in the nation!",
+          hotspot: { left: 70, top: 41, width: 24, height: 18 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=2121%20Co%20Hwy%20A%2C%20West%20Bend%2C%20WI%2053090&travelmode=driving",
+          facts: [
+            "Location: Farmington, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "Lizard Mound has over 20 animal-shaped mounds, including lizards, birds, and bears.",
+            "Some mounds align with the sun at certain times of the year.",
+            "The mounds were built by the Late Woodland people for ceremonial purposes.",
+            "Excavations show not all mounds were burials—some were symbolic.",
+            "One of the most well-preserved Native American effigy mound sites in the nation.",
+            "28 distinct mounds are located at the site.",
+            "Animal-shaped mounds may represent clan symbols or spiritual beliefs.",
+            "Some lizard-shaped mounds stretch over 1,000 feet long.",
+            "The site was first surveyed by archaeologists in the 1800s.",
+            "The mounds are protected and sacred to Native American tribes today.",
+          ],
+          gallery: ["./LizardMoundMap.png", "./LizardMound.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: [
+            { id: "lm-animal-lizard", group: "Animal Mounds", text: "Find a lizard-shaped mound." },
+            { id: "lm-animal-bird", group: "Animal Mounds", text: "Spot a bird-shaped mound." },
+            { id: "lm-animal-bear", group: "Animal Mounds", text: "Look for a bear-shaped mound." },
+            { id: "lm-sun-align", group: "Animal Mounds", text: "Notice which direction the mounds face—any line up with the sun?" },
+            { id: "lm-cone", group: "Geometric Mounds", text: "Find a cone-shaped mound." },
+            { id: "lm-straight", group: "Geometric Mounds", text: "Find a long, straight mound." },
+            { id: "lm-imagine", group: "Geometric Mounds", text: "Imagine what the shapes were used for (ceremony? symbolic? burial?)." },
+            { id: "lm-nature", group: "Nature Hunt", text: "Spot plants or wildlife around the mounds (look, don’t disturb)." },
+            { id: "lm-sketch", group: "Field Notebook", text: "Sketch your favorite mound shape in your field notebook." },
+          ],
+          toolkitItems: makeToolkitBadges("lizard-mound", { visit:"🎒", share:"⛏️", fact:"📋" }),
+        },
+        {
+          id: "pike-lake",
+          title: "Pike Lake",
+          short: "A southeast Wisconsin lake stop—great for nature breaks and looped adventures.",
+          hotspot: { left: 40, top: 50, width: 28, height: 15 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=3250%20Kettle%20Moraine%20Rd%2C%20Hartford%2C%20WI%2053027&travelmode=driving",
+          facts: [
+            "Location: Hartford, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "Pike Lake had 9 burial and effigy mounds from the Late Woodland period.",
+            "Mounds include conical and linear shapes, not just animals.",
+            "The lake area provided fish, water, and other resources for mound builders.",
+            "Excavations revealed pottery fragments and stone tools near some mounds.",
+          ],
+          gallery: ["./Dock.png", "./Lake.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("pl"),
+          toolkitItems: makeToolkitBadges("pike-lake", { visit:"🧹", share:"🪨", fact:"🗺️" }),
+        },
+        {
+          id: "aztalan-state-park",
+          title: "Aztalan State Park",
+          short: "One of Wisconsin’s most famous ancient places—an iconic archaeological site.",
+          hotspot: { left: 7, top: 66, width: 28, height: 16 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Aztalan%20State%20Park%2C%20Lake%20Mills%2C%20WI&travelmode=driving",
+          facts: [
+            "Location: Jefferson County, WI",
+            "Time Period: ~1000–1300 A.D.",
+            "Aztalan was a Mississippian culture village with homes, plazas, and stockade walls.",
+            "The stockade was made of wooden posts and surrounded the village for protection.",
+            "Archaeologists found house mounds where longhouses once stood.",
+            "Large open plaza areas were used for ceremonies and public gatherings.",
+            "The village was built along the Crawfish River for water and fishing.",
+            "Stone tools, pottery, and ornaments were uncovered during excavations.",
+            "Villagers farmed corn, beans, and squash (the “Three Sisters”).",
+          ],
+          gallery: ["./Aztalan1.png", "./Aztalan2.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("az"),
+          toolkitItems: makeToolkitBadges("aztalan-state-park", { visit:"🥾", share:"🖌️", fact:"📏" }),
+        },
+        {
+          id: "koshkonong-effigy-mounds",
+          title: "Koshkonong Effigy Mounds",
+          short: "An effigy mound area—great for learning how landscapes can be ‘written’ with earthworks.",
+          hotspot: { left: 8, top: 83, width: 44, height: 16 },
+          mapUrl: "https://www.google.com/maps/dir/?api=1&destination=Koshkonong%20Mounds%20Rd%2C%20Fort%20Atkinson%2C%20WI%2053538&travelmode=driving",
+          facts: [
+            "Location: Jefferson County, WI",
+            "Time Period: ~A.D. 700–1200 (Late Woodland)",
+            "Koshkonong has snake, lizard, and bird effigy mounds.",
+            "The mounds were built for ceremonial, spiritual, or clan purposes.",
+            "Excavations have found some burial remains in select mounds.",
+            "Mounds are located on hills and flat areas, giving clues about placement importance.",
+            "The site has large animal-shaped mounds that are visible from above.",
+            "The most outstanding mound in the park is the 222 foot Turtle Mound.",
+          ],
+          gallery: ["./Sign.png"],
+          adventureLabTitle: "Adventure Lab",
+          adventureTasks: COMMON_ADVENTURE_TASKS("ko"),
+          toolkitItems: makeToolkitBadges("koshkonong-effigy-mounds", { visit:"🧤", share:"🔨", fact:"🧺" }),
+        },
+      ];
+
+      function getLoc(id){ return LOCATIONS.find(l => l.id === id); }
+
+      const DID_YOU_KNOW = { id: "did-you-know", title: "Did You Know?", hotspot: { left: 5, top: 34, width: 34, height: 12 } };
+
+      // One shared "main menu" row (Toolkit / Etiquette / Did You Know?) used everywhere
+      function MainMenuLinks(){
+        return (
+          <>
+            <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
+            <a className="navLink" href="#/etiquette">📜 Etiquette</a>
+            <a className="navLink" href="#/did-you-know">💡 Did You Know?</a>
+          </>
+        );
+      }
+
+      function Cover({ progress }){
+        const [, nav] = useHashRoute();
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+              <div className="navRow">
+                <MainMenuLinks />
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="coverWrap" aria-label="Unearthed Wisconsin cover map">
+                <img className="coverImg" src="./cover.png" alt="Unearthed Wisconsin map cover" />
+                {LOCATIONS.map(loc => (
+                  <React.Fragment key={loc.id}>
+                    <button
+                      className="hotspot"
+                      style={{
+                        left: `${loc.hotspot.left}%`,
+                        top: `${loc.hotspot.top}%`,
+                        width: `${loc.hotspot.width}%`,
+                        height: `${loc.hotspot.height}%`,
+                      }}
+                      onClick={() => nav(`#/location/${loc.id}`)}
+                      aria-label={`Open ${loc.title}`}
+                      title={loc.title}
+                    />
+                    {loadProgress().toolkit?.[`${loc.id}-earth-explorer`] ? (
+                      <div className="stamp" style={{ left:`calc(${loc.hotspot.left}% + 2px)`, top:`calc(${loc.hotspot.top}% - 10px)` }}>
+                        <span className="stampDot"></span>Visited
+                      </div>
+                    ) : null}
+                  </React.Fragment>
+                ))}
+                <button
+                  className="hotspot"
+                  style={{
+                    left: `${DID_YOU_KNOW.hotspot.left}%`,
+                    top: `${DID_YOU_KNOW.hotspot.top}%`,
+                    width: `${DID_YOU_KNOW.hotspot.width}%`,
+                    height: `${DID_YOU_KNOW.hotspot.height}%`,
+                  }}
+                  onClick={() => nav("#/did-you-know")}
+                  aria-label="Open Did You Know page"
+                  title="Did You Know?"
+                />
+                <div className="factStamp" style={{ left:`calc(${DID_YOU_KNOW.hotspot.left}% + 2px)`, top:`calc(${DID_YOU_KNOW.hotspot.top}% - 10px)` }}>
+                  💡 Did You Know?
+                </div>
+              </div>
+
+              <div className="hint">
+                <div className="hintTitle">How to use the Unearthed Wisconsin App</div>
+                <div className="hintBody">
+                  Tap the icon for Lizard Mound, High Cliff, Pike Lake, Aztalan State Park, or Koshkonong Effigy Mounds.
+                  See the badges you've collected in the Toolkit. Read the Etiquette and Did You Know? pages by clicking
+                  the buttons along the top.
+                </div>
+              </div>
+
+              <div style={{textAlign:"center"}}>
+                <a className="btn btn2" href="#/origin">🌱 App Origin</a>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin • Game Build</footer>
+          </div>
+        );
+      }
+
+      function DidYouKnowPage({ progress, update }){
+        const badge = GLOBAL_BADGES.find(b => b.id === "page-knowledge-seeker");
+        const already = !!progress.toolkit?.[badge.id];
+
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+              <div className="navRow">
+                <a className="navLink" href="#/">← Home</a>
+                <MainMenuLinks />
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="title">💡 Did You Know?</h1>
+                <p className="subtitle">Fun facts about archaeology and effigy mounds!</p>
+
+                <ul className="dykList">
+                  <li className="dykItem">🦎 An effigy mound is a prehistoric Native American earthwork shaped like an animal, person, or object.</li>
+                  <li className="dykItem">🐾 <strong>Wisconsin is the Effigy Mound Capital of the World!</strong><br/>Nowhere else on Earth has as many animal-shaped mounds as Wisconsin once did!</li>
+                  <li className="dykItem">🕊️ <strong>Some mounds are so big you can only see their shape from the sky.</strong><br/>Early archaeologists used airplanes to discover bird and bear shapes!</li>
+                  <li className="dykItem">🐻 <strong>Bears and birds were the most common mound shapes.</strong><br/>They may symbolize earth animals (bears) and sky spirits (birds).</li>
+                  <li className="dykItem">📡 <strong>Archaeologists can “see underground” without digging.</strong><br/>Tools like Ground Penetrating Radar and LiDAR help map hidden features.</li>
+                  <li className="dykItem">🌽 <strong>Ancient Wisconsin people farmed corn, beans, and squash.</strong><br/>Hundreds of years before European settlers arrived.</li>
+                </ul>
+
+                <section className="panel" style={{marginTop:14}}>
+                  <h2>🏅 Page Badge</h2>
+                  <div className="kitGrid">
+                    <div className="kitItem">
+                      <div className="kitIcon">{badge.icon}</div>
+                      <div style={{flex:1}}>
+                        <div className="kitName">{badge.name}</div>
+                        <div className="tagRow">
+                          <span className="tag">How to earn: <strong>{badge.earnRule}</strong></span>
+                          {already ? <span className="tag">✅ Earned</span> : <span className="tag">Ready</span>}
+                        </div>
+                        <div style={{marginTop:10}}>
+                          <button className="btn btn2" type="button" onClick={() => collectGlobalBadge(update, badge)} disabled={already}>
+                            {already ? "Collected" : "Click To Collect"}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <div style={{marginTop:16}}>
+                  <a className="btn" href="#/">Back to Home</a>
+                </div>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+          </div>
+        );
+      }
+
+      function EtiquettePage({ progress, update }){
+        const badge = GLOBAL_BADGES.find(b => b.id === "page-etiquette-star");
+        const already = !!progress.toolkit?.[badge.id];
+
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+              <div className="navRow">
+                <a className="navLink" href="#/">← Home</a>
+                <MainMenuLinks />
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="bigTitle">Respectful Visiting Etiquette for Archaeology Mound Sites</h1>
+
+                <ol className="etList">
+                  <li><strong>Stay on the Trails</strong></li>
+                  <li><strong>Do Not Climb on the Mounds</strong></li>
+                  <li><strong>Leave Everything Exactly as You Found It</strong></li>
+                  <li><strong>No Digging—Ever</strong></li>
+                  <li><strong>Keep the Site Clean</strong></li>
+                  <li><strong>Be Quiet and Respectful</strong></li>
+                  <li><strong>Teach Others to Be Respectful Too</strong></li>
+                  <li><strong>Keep Pets Leashed and on the Trail</strong></li>
+                  <li><strong>Take Only Photos</strong></li>
+                  <li><strong>Follow Park Signs and Rules</strong></li>
+                </ol>
+
+                <img className="etImage" src="./hike.png" alt="Respectful hiking illustration" />
+
+                <section className="panel" style={{marginTop:14}}>
+                  <h2>🏅 Page Badge</h2>
+                  <div className="kitGrid">
+                    <div className="kitItem">
+                      <div className="kitIcon">{badge.icon}</div>
+                      <div style={{flex:1}}>
+                        <div className="kitName">{badge.name}</div>
+                        <div className="tagRow">
+                          <span className="tag">How to earn: <strong>{badge.earnRule}</strong></span>
+                          {already ? <span className="tag">✅ Earned</span> : <span className="tag">Ready</span>}
+                        </div>
+                        <div style={{marginTop:10}}>
+                          <button className="btn btn2" type="button" onClick={() => collectGlobalBadge(update, badge)} disabled={already}>
+                            {already ? "Collected" : "Click To Collect"}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+          </div>
+        );
+      }
+
+      function AppOriginPage(){
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+              <div className="navRow">
+                <a className="navLink" href="#/">← Home</a>
+                <MainMenuLinks />
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="title">🌱 App Origin</h1>
+                <p className="subtitle">The creation of the Unearthed Wisconsin app:</p>
+
+                <p style={{lineHeight:1.7, color:"rgba(0,0,0,.82)"}}>
+                  <strong>The Unearthed Wisconsin app</strong> was created by the <strong>FLL Athletic Technics team from Hartford, WI</strong> for their Innovation project.
+                </p>
+                <p style={{lineHeight:1.7, color:"rgba(0,0,0,.82)"}}>
+                  The team discovered a problem; that many people do not know about the important historical sites and cultures that exist right here in Wisconsin.
+                </p>
+                <p style={{lineHeight:1.7, color:"rgba(0,0,0,.82)"}}>
+                  Their solution was to engage the public—especially kids, families, and everyday explorers—by making learning interactive, accessible, and fun.
+                </p>
+                <p style={{lineHeight:1.7, color:"rgba(0,0,0,.82)"}}>
+                  <strong>Unearthed Wisconsin</strong> connects modern explorers with the ancient stories beneath our landscape, encouraging curiosity, respect, and wonder for the people who lived here long before us.
+                </p>
+
+                <div style={{marginTop:16}}>
+                  <a className="btn" href="#/">Back to Home</a>
+                </div>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+          </div>
+        );
+      }
+
+      function ToolkitPage({ progress, update }){
+        const earnedIds = Object.keys(progress.toolkit || {});
+        const earnedItems = [];
+
+        LOCATIONS.forEach(loc => {
+          (loc.toolkitItems || []).forEach(item => {
+            if(progress.toolkit?.[item.id]){
+              earnedItems.push({ ...item, earnedAt: progress.toolkit[item.id].earnedAt, earnedFrom: progress.toolkit[item.id].earnedFrom });
+            }
+          });
+        });
+
+        GLOBAL_BADGES.forEach(b => {
+          if(progress.toolkit?.[b.id]){
+            earnedItems.push({ id: b.id, name: b.name, icon: b.icon, description: "", earnedAt: progress.toolkit[b.id].earnedAt, earnedFrom: progress.toolkit[b.id].earnedFrom });
+          }
+        });
+
+        const totalPossibleBadges = LOCATIONS.reduce((sum, loc) => sum + ((loc.toolkitItems || []).length), 0) + GLOBAL_BADGES.length;
+        const hasAllBadges = earnedIds.length >= totalPossibleBadges;
+
+        const resetAll = () => {
+          if(!confirm("Reset all saved progress on this device?")) return;
+          const empty = { visited: {}, tasks: {}, toolkit: {}, flags: { shared:{}, directions:{} } };
+          saveProgress(empty);
+          update(() => empty);
+        };
+
+        const [certOpen, setCertOpen] = React.useState(false);
+
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+              <div className="navRow">
+                <a className="navLink" href="#/">← Home</a>
+                <MainMenuLinks />
+                <button className="btn btn2" type="button" onClick={resetAll}>♻️ Reset Progress</button>
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="title">🧰 Archaeology Tool Kit</h1>
+                <p className="subtitle">
+                  To earn badges return to the map, click on each of the 5 locations, at the bottom of each page it tells you how to earn badges for that site.
+                  You can also earn a badge for reading the Etiquette page and reading the Did You Know? page.
+                  Lastly, you will receive a certificate for being an official Unearthed Wisconsin Explorer for completing all 22 badges available.
+                </p>
+
+                <div className="panel">
+                  <div className="tagRow">
+                    <span className="tag">Visited sites: <strong>{Object.keys(progress.visited || {}).length}</strong></span>
+                    <span className="tag">Badges earned: <strong>{earnedIds.length}</strong></span>
+                    <span className="tag">Total possible: <strong>{totalPossibleBadges}</strong></span>
+                    {!hasAllBadges ? <span className="tag warnTag">Collect them all to unlock the Explorer Certificate</span> : <span className="tag">🏆 All badges earned!</span>}
+                  </div>
+                </div>
+
+                <div className="panel" style={{marginTop:14}}>
+                  <h2>🎓 Unearthed Wisconsin Explorer Certificate</h2>
+                  <div className="smallMuted">Unlock this certificate by earning <strong>all</strong> possible badges in the app.</div>
+
+                  <div style={{marginTop:10, display:"flex", gap:10, flexWrap:"wrap"}}>
+                    {hasAllBadges ? (
+                      <button className="btn btn2" type="button" onClick={() => setCertOpen(true)}>🏅 Claim Certificate</button>
+                    ) : (
+                      <button className="btn btn2" type="button" disabled>🔒 Claim Certificate</button>
+                    )}
+                  </div>
+
+                  <div className="smallMuted" style={{marginTop:8}}>
+                    When unlocked, type your name and completion date to personalize the certificate.
+                  </div>
+                </div>
+
+                <div className="panel" style={{marginTop:14}}>
+                  <h2>Your earned badges</h2>
+                  {earnedItems.length ? (
+                    <div className="kitGrid">
+                      {earnedItems.sort((a,b) => (b.earnedAt || 0) - (a.earnedAt || 0)).map(item => (
+                        <div key={item.id} className="kitItem">
+                          <div className="kitIcon">{item.icon}</div>
+                          <div>
+                            <div className="kitName">{item.name}</div>
+                            <div className="tagRow">
+                              <span className="tag">Earned at: <strong>{new Date(item.earnedAt).toLocaleString()}</strong></span>
+                              <span className="tag">From: <strong>{item.earnedFrom}</strong></span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="smallMuted">No badges earned yet. Open a location or collect the page badges.</div>
+                  )}
+                </div>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+            <CertificateModal open={certOpen} onClose={() => setCertOpen(false)} />
+          </div>
+        );
+      }
+
+      function LocationPage({ id, progress, update }){
+        const loc = getLoc(id);
+
+        const [lightboxOpen, setLightboxOpen] = React.useState(false);
+        const [lightboxSrc, setLightboxSrc] = React.useState("");
+        const [lightboxTitle, setLightboxTitle] = React.useState("");
+
+        React.useEffect(() => {
+          if(!loc) return;
+          update(p => {
+            p.visited = p.visited || {};
+            p.visited[loc.id] = true;
+            p.flags = p.flags || { shared:{}, directions:{} };
+            p.flags.shared = p.flags.shared || {};
+            p.flags.directions = p.flags.directions || {};
+            return p;
+          });
+        }, [id]);
+
+        if(!loc){
+          return (
+            <div className="page">
+              <header className="topbar">
+                <div className="brand">
+                  <span className="brandDot" />
+                  <span className="brandText">Unearthed Wisconsin</span>
+                </div>
+                <div className="navRow">
+                  <a className="navLink" href="#/">← Home</a>
+                  <MainMenuLinks />
+                </div>
+              </header>
+              <main className="content">
+                <div className="card">
+                  <h1>Location not found</h1>
+                  <p className="subtitle">That stop isn’t in the list yet.</p>
+                  <a className="btn" href="#/">Back to Home</a>
+                </div>
+              </main>
+            </div>
+          );
+        }
+
+        const tasks = loc.adventureTasks || [];
+        const taskStateForLoc = (progress.tasks && progress.tasks[loc.id]) ? progress.tasks[loc.id] : {};
+        const completedCount = tasks.filter(t => taskStateForLoc[t.id]).length;
+        const totalCount = tasks.length;
+
+        const toggleTask = (taskId) => {
+          update(p => {
+            p.tasks = p.tasks || {};
+            p.tasks[loc.id] = p.tasks[loc.id] || {};
+            p.tasks[loc.id][taskId] = !p.tasks[loc.id][taskId];
+            return p;
+          });
+        };
+
+        const sharedFlag = !!progress.flags?.shared?.[loc.id];
+        const directionsFlag = !!progress.flags?.directions?.[loc.id];
+
+        const doDirections = () => {
+          if(loc.mapUrl) openMaps(loc.mapUrl);
+          update(p => {
+            p.flags = p.flags || { shared:{}, directions:{} };
+            p.flags.directions = p.flags.directions || {};
+            p.flags.directions[loc.id] = true;
+            return p;
+          });
+        };
+
+        const doShare = async () => {
+          const text = `We explored ${loc.title}! #UnearthedWisconsin`;
+          await tryShare(text);
+          update(p => {
+            p.flags = p.flags || { shared:{}, directions:{} };
+            p.flags.shared = p.flags.shared || {};
+            p.flags.shared[loc.id] = true;
+            return p;
+          });
+        };
+
+        const toolkitItems = loc.toolkitItems || [];
+        const earnedToolkit = progress.toolkit || {};
+        const isLabComplete = (totalCount > 0 && completedCount === totalCount);
+
+        const eligibleFor = (item) => {
+          if(item.type === "fact") return true;
+          if(item.type === "share") return sharedFlag;
+          if(item.type === "visit") return directionsFlag;
+          if(item.type === "lab") return isLabComplete;
+          return false;
+        };
+
+        const earnToolkitItem = (itemId) => {
+          const item = toolkitItems.find(x => x.id === itemId);
+          if(!item) return;
+          if(!eligibleFor(item)) return;
+
+          update(p => {
+            p.toolkit = p.toolkit || {};
+            if(!p.toolkit[itemId]){
+              p.toolkit[itemId] = { earnedAt: Date.now(), earnedFrom: loc.title };
+            }
+            return p;
+          });
+        };
+
+        const groups = [];
+        tasks.forEach(t => {
+          const g = t.group || "Adventure";
+          if(!groups.includes(g)) groups.push(g);
+        });
+
+        const openImage = (src) => {
+          setLightboxSrc(src);
+          setLightboxTitle(`${loc.title} photo`);
+          setLightboxOpen(true);
+        };
+
+        return (
+          <div className="page">
+            <header className="topbar">
+              <div className="brand">
+                <span className="brandDot" />
+                <span className="brandText">Unearthed Wisconsin</span>
+              </div>
+
+              {/* UPDATED: Etiquette stays in the main menu across the whole app */}
+              <div className="navRow">
+                <a className="navLink" href="#/">← Home</a>
+                <MainMenuLinks />
+              </div>
+            </header>
+
+            <main className="content">
+              <div className="card">
+                <h1 className="title">{loc.title}</h1>
+
+                <div style={{marginTop: 10, marginBottom: 10, display:"flex", gap:10, flexWrap:"wrap"}}>
+                  {loc.mapUrl ? (
+                    <button className="btn" type="button" onClick={doDirections}>
+                      🚗 Open Driving Directions
+                    </button>
+                  ) : null}
+
+                  <button className="btn btn2" type="button" onClick={doShare}>
+                    📣 Share #UnearthedWisconsin
+                  </button>
+
+                  {/* UPDATED: same button class (same font size), icon changed to 📱 */}
+                  <a className="btn" href={UW_FACEBOOK_PAGE_URL} target="_blank" rel="noopener noreferrer">
+                    📱 Unearthed Wisconsin Facebook Page
+                  </a>
+                </div>
+
+                {loc.facts?.length ? (
+                  <section className="panel">
+                    <h2>Facts</h2>
+                    <ul style={{margin: 0, paddingLeft: 18, lineHeight: 1.6}}>
+                      {loc.facts.map((fact, index) => (
+                        <li key={index} style={{color: "rgba(0,0,0,.78)"}}>
+                          {fact}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+
+                {loc.gallery?.length ? (
+                  <section className="panel" style={{marginTop: 14}}>
+                    <h2>Pictures</h2>
+                    <div style={{display:"grid", gap:10, gridTemplateColumns:"repeat(2, minmax(0, 1fr))"}}>
+                      {loc.gallery.map((src) => (
+                        <img
+                          key={src}
+                          src={src}
+                          alt={`${loc.title} photo`}
+                          className="imgThumb"
+                          onClick={() => openImage(src)}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={(e)=>{ if(e.key==="Enter" || e.key===" "){ e.preventDefault(); openImage(src);} }}
+                        />
+                      ))}
+                    </div>
+                    <div className="smallMuted" style={{marginTop:10}}>
+                      Tip: Click a photo to enlarge.<br/>
+                      To see more pictures, visit our Facebook page to see photos that other Unearthed Wisconsin Explorers have shared when they visited a site!
+                    </div>
+                  </section>
+                ) : null}
+
+                {tasks.length ? (
+                  <section className="panel" style={{marginTop: 14}}>
+                    <div style={{display:"flex", justifyContent:"space-between", alignItems:"baseline", gap:10, flexWrap:"wrap"}}>
+                      <h2>{loc.adventureLabTitle || "Adventure Lab"}</h2>
+                      <span className="pill">Progress: {completedCount}/{totalCount}</span>
+                    </div>
+
+                    <div className="smallMuted" style={{marginBottom:10}}>
+                      Now it's time to get out and explore! Click the "Open Driving Directions" once you arrive on site work on your checklist below.
+                      Check items as you complete them and earn the Adventure Lab Master badge for completing the whole list
+                    </div>
+
+                    <div className="checklist">
+                      {groups.map(group => (
+                        <div key={group}>
+                          <div className="groupTitle">{group}</div>
+                          <div className="checklist" style={{marginTop:8}}>
+                            {tasks.filter(t => (t.group || "Adventure") === group).map(t => {
+                              const done = !!taskStateForLoc[t.id];
+                              return (
+                                <label key={t.id} className={"taskRow" + (done ? " taskDone" : "")}>
+                                  <input type="checkbox" checked={done} onChange={() => toggleTask(t.id)} />
+                                  <div className="taskText">{t.text}</div>
+                                </label>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {isLabComplete ? (
+                      <div className="smallMuted" style={{marginTop:10}}>
+                        ✅ Checklist complete! Scroll down to collect your <strong>Adventure Lab Master</strong> badge.
+                      </div>
+                    ) : null}
+                  </section>
+                ) : null}
+
+                {toolkitItems.length ? (
+                  <section className="panel" style={{marginTop: 14}}>
+                    <h2>🏅 Earn Badges</h2>
+
+                    <div className="kitGrid">
+                      {toolkitItems.map(item => {
+                        const already = !!earnedToolkit[item.id];
+                        const eligible = eligibleFor(item);
+
+                        return (
+                          <div key={item.id} className="kitItem">
+                            <div className="kitIcon">{item.icon}</div>
+                            <div style={{flex:1}}>
+                              <div className="kitName">{item.name}</div>
+                              <div className="tagRow">
+                                <span className="tag">How to earn: <strong>{item.earnRule}</strong></span>
+                                {already ? <span className="tag">✅ Earned</span> : (eligible ? <span className="tag">Ready</span> : <span className="tag warnTag">Not yet</span>)}
+                              </div>
+
+                              <div style={{marginTop:10}}>
+                                <button className="btn btn2" type="button" onClick={() => earnToolkitItem(item.id)} disabled={already || !eligible}>
+                                  {already ? "Collected" : "Click To Collect"}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ) : null}
+
+                <div style={{marginTop:16, display:"flex", gap:10, flexWrap:"wrap"}}>
+                  <a className="btn" href="#/">Back to Home</a>
+                  <a className="btn btn2" href="#/toolkit">View Tool Kit</a>
+                </div>
+              </div>
+            </main>
+
+            <footer className="footer">Unearthed Wisconsin</footer>
+            <Lightbox open={lightboxOpen} title={lightboxTitle} src={lightboxSrc} onClose={() => setLightboxOpen(false)} />
+          </div>
+        );
+      }
+
+      function App(){
+        const [hash] = useHashRoute();
+        const [progress, update] = useProgress();
+
+        const cleaned = (hash || "#/").replace(/^#/, "");
+        const parts = cleaned.split("/").filter(Boolean);
+
+        if(parts.length === 0) return <Cover progress={progress} />;
+        if(parts[0] === "location" && parts[1]) return <LocationPage id={parts[1]} progress={progress} update={update} />;
+        if(parts[0] === "toolkit") return <ToolkitPage progress={progress} update={update} />;
+        if(parts[0] === "etiquette") return <EtiquettePage progress={progress} update={update} />;
+        if(parts[0] === "did-you-know") return <DidYouKnowPage progress={progress} update={update} />;
+        if(parts[0] === "origin") return <AppOriginPage />;
+
+        return <Cover progress={progress} />;
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+
+    <!-- Install Banner for Android/Desktop -->
+    <div id="install-banner" class="install-banner">
+      <div class="install-banner-content">
+        <div class="install-banner-icon">🦎</div>
+        <div class="install-banner-text">
+          <div class="install-banner-title">Install Unearthed Wisconsin</div>
+          <div class="install-banner-desc">Add to your home screen for offline access and a native app experience!</div>
+        </div>
+        <div class="install-banner-buttons">
+          <button id="install-btn" class="install-btn install-btn-primary">Install</button>
+          <button id="install-dismiss" class="install-btn install-btn-secondary">Not Now</button>
         </div>
       </div>
     </div>
+
+    <!-- iOS Install Instructions Modal -->
+    <div id="ios-modal" class="ios-modal-overlay">
+      <div class="ios-modal">
+        <div class="ios-modal-header">
+          <h3>📱 Install on iPhone/iPad</h3>
+        </div>
+        <div class="ios-modal-body">
+          <div class="ios-step">
+            <div class="ios-step-num">1</div>
+            <div class="ios-step-text">Tap the <span class="ios-step-icon">⬆️</span> <strong>Share</strong> button at the bottom of Safari</div>
+          </div>
+          <div class="ios-step">
+            <div class="ios-step-num">2</div>
+            <div class="ios-step-text">Scroll down and tap <strong>"Add to Home Screen"</strong> <span class="ios-step-icon">➕</span></div>
+          </div>
+          <div class="ios-step">
+            <div class="ios-step-num">3</div>
+            <div class="ios-step-text">Tap <strong>"Add"</strong> in the top right corner</div>
+          </div>
+        </div>
+        <div class="ios-modal-footer">
+          <button id="ios-modal-close" class="ios-modal-close">Got it!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Worker & Install Prompt Script -->
+    <script>
+      // Detect platform
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isAndroid = /Android/.test(navigator.userAgent);
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      
+      // Install prompt deferral
+      let deferredPrompt = null;
+      const INSTALL_DISMISSED_KEY = 'uw_install_dismissed';
+      const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+      // Check if user dismissed recently
+      function wasRecentlyDismissed() {
+        try {
+          const dismissed = localStorage.getItem(INSTALL_DISMISSED_KEY);
+          if (!dismissed) return false;
+          const dismissedAt = parseInt(dismissed, 10);
+          return Date.now() - dismissedAt < DISMISS_DURATION;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // Show install banner
+      function showInstallBanner() {
+        if (isStandalone || wasRecentlyDismissed()) return;
+        
+        const banner = document.getElementById('install-banner');
+        if (banner) {
+          banner.classList.add('show');
+        }
+      }
+
+      // Hide install banner
+      function hideInstallBanner() {
+        const banner = document.getElementById('install-banner');
+        if (banner) {
+          banner.classList.remove('show');
+        }
+      }
+
+      // Show iOS instructions modal
+      function showIOSModal() {
+        const modal = document.getElementById('ios-modal');
+        if (modal) {
+          modal.classList.add('show');
+        }
+      }
+
+      // Hide iOS modal
+      function hideIOSModal() {
+        const modal = document.getElementById('ios-modal');
+        if (modal) {
+          modal.classList.remove('show');
+        }
+      }
+
+      // Android/Desktop: Listen for beforeinstallprompt
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show banner after a short delay
+        setTimeout(() => {
+          showInstallBanner();
+        }, 2000);
+      });
+
+      // iOS: Show banner with instructions
+      if (isIOS && !isStandalone) {
+        setTimeout(() => {
+          showInstallBanner();
+        }, 3000);
+      }
+
+      // Install button click
+      document.getElementById('install-btn')?.addEventListener('click', async () => {
+        if (isIOS) {
+          hideInstallBanner();
+          showIOSModal();
+          return;
+        }
+
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log('[PWA] Install outcome:', outcome);
+          deferredPrompt = null;
+          hideInstallBanner();
+        }
+      });
+
+      // Dismiss button click
+      document.getElementById('install-dismiss')?.addEventListener('click', () => {
+        hideInstallBanner();
+        try {
+          localStorage.setItem(INSTALL_DISMISSED_KEY, Date.now().toString());
+        } catch (e) {}
+      });
+
+      // iOS modal close
+      document.getElementById('ios-modal-close')?.addEventListener('click', () => {
+        hideIOSModal();
+        try {
+          localStorage.setItem(INSTALL_DISMISSED_KEY, Date.now().toString());
+        } catch (e) {}
+      });
+
+      // Close iOS modal on overlay click
+      document.getElementById('ios-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'ios-modal') {
+          hideIOSModal();
+        }
+      });
+
+      // Detect successful install
+      window.addEventListener('appinstalled', () => {
+        console.log('[PWA] App installed successfully!');
+        hideInstallBanner();
+        deferredPrompt = null;
+      });
+
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('[SW] Service Worker registered:', registration.scope);
+              
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('[SW] New version available!');
+                  }
+                });
+              });
+            })
+            .catch((error) => {
+              console.error('[SW] Registration failed:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
