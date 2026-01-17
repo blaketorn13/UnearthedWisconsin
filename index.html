@@ -15,14 +15,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Unearthed WI" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png?v=2" />
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.json?v=2" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-96x96.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-96x96.png?v=2" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72x72.png?v=2" />
 
     <!-- React (CDN) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -60,7 +60,7 @@
         background: rgba(255,255,255,0.70);
       }
       .brand{display:flex;align-items:center;gap:10px}
-      .brandDot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(42,127,88,.14)}
+      .brandDot{width:56px;height:56px;border-radius:10px;object-fit:cover;}
       .brandText{font-weight:800;letter-spacing:.2px}
       .navRow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
       .navLink{
@@ -457,13 +457,10 @@
       .install-banner-icon{
         width:48px;
         height:48px;
-        background:rgba(255,255,255,.2);
         border-radius:12px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:24px;
         flex-shrink:0;
+        object-fit:cover;
+        border:2px solid rgba(255,255,255,.3);
       }
       .install-banner-text{flex:1}
       .install-banner-title{font-weight:800;font-size:16px;margin-bottom:4px}
@@ -973,7 +970,7 @@
           <div className="page">
             <header className="topbar">
               <div className="brand">
-                <span className="brandDot" />
+                <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
               <div className="navRow">
@@ -1049,7 +1046,7 @@
           <div className="page">
             <header className="topbar">
               <div className="brand">
-                <span className="brandDot" />
+                <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
               <div className="navRow">
@@ -1112,7 +1109,7 @@
           <div className="page">
             <header className="topbar">
               <div className="brand">
-                <span className="brandDot" />
+                <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
               <div className="navRow">
@@ -1173,7 +1170,7 @@
           <div className="page">
             <header className="topbar">
               <div className="brand">
-                <span className="brandDot" />
+                <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
               <div className="navRow">
@@ -1245,7 +1242,7 @@
           <div className="page">
             <header className="topbar">
               <div className="brand">
-                <span className="brandDot" />
+                <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
               <div className="navRow">
@@ -1344,7 +1341,7 @@
             <div className="page">
               <header className="topbar">
                 <div className="brand">
-                  <span className="brandDot" />
+                  <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                   <span className="brandText">Unearthed Wisconsin</span>
                 </div>
                 <div className="navRow">
@@ -1443,7 +1440,7 @@
           <div className="page">
             <header className="topbar">
               <div className="brand">
-                <span className="brandDot" />
+                <img className="brandDot" src="/icons/icon-72x72.png?v=2" alt="" />
                 <span className="brandText">Unearthed Wisconsin</span>
               </div>
 
@@ -1620,7 +1617,7 @@
     <!-- Install Banner for Android/Desktop -->
     <div id="install-banner" class="install-banner">
       <div class="install-banner-content">
-        <div class="install-banner-icon">🦎</div>
+        <img class="install-banner-icon" src="/icons/icon-96x96.png?v=2" alt="Unearthed Wisconsin" />
         <div class="install-banner-text">
           <div class="install-banner-title">Install Unearthed Wisconsin</div>
           <div class="install-banner-desc">Add to your home screen for offline access and a native app experience!</div>
@@ -1636,7 +1633,8 @@
     <div id="ios-modal" class="ios-modal-overlay">
       <div class="ios-modal">
         <div class="ios-modal-header">
-          <h3>📱 Install on iPhone/iPad</h3>
+          <img src="/icons/icon-72x72.png?v=2" alt="" style="width:32px;height:32px;border-radius:8px;margin-bottom:8px;" />
+          <h3>Install on iPhone/iPad</h3>
         </div>
         <div class="ios-modal-body">
           <div class="ios-step">
@@ -1806,3 +1804,5 @@
     </script>
   </body>
 </html>
+
+
